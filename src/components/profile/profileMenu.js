@@ -1,18 +1,20 @@
-import { Tabs, Button, Row, Col } from "antd";
+import { Tabs, Button, Row, Col, Image } from "antd";
 import { HeartFilled, EditOutlined } from "@ant-design/icons";
+import Track from "./trackInMenu";
+import Follower from "./followerInMenu";
 
 const ProfileMenu = () => {
   const onChange = (key) => {
     console.log(key);
   };
   const detailsOwerview = (
-    <Col span={8}>
-      <Row>
+    <Col span={7} style={{ borderLeft: "1px solid lightgrey" }}>
+      <Row style={{ paddingLeft: "10px" }}>
         <Col span={8} style={{ borderRight: "1px solid lightgrey" }}>
           <p
             style={{
               margin: "0",
-              fontSize: "16px",
+              fontSize: "14px",
               color: "darkgray",
               textAlign: "start",
               paddingLeft: "8px",
@@ -36,7 +38,7 @@ const ProfileMenu = () => {
           <p
             style={{
               margin: "0",
-              fontSize: "16px",
+              fontSize: "14px",
               color: "darkgray",
               textAlign: "start",
               paddingLeft: "8px",
@@ -60,7 +62,7 @@ const ProfileMenu = () => {
           <p
             style={{
               margin: "0",
-              fontSize: "16px",
+              fontSize: "14px",
               color: "darkgray",
               textAlign: "start",
               paddingLeft: "8px",
@@ -90,10 +92,16 @@ const ProfileMenu = () => {
           textAlign: "center",
           display: "flex",
           borderBottom: "1px solid lightgrey",
+          paddingLeft: "10px",
         }}
       >
         <HeartFilled
-          style={{ margin: "auto", marginRight: "8px", marginLeft: "0px" }}
+          style={{
+            margin: "auto",
+            marginRight: "8px",
+            marginLeft: "0px",
+            color: "black",
+          }}
         />
         <p>159 likes</p>
         <Button
@@ -108,6 +116,48 @@ const ProfileMenu = () => {
           View all
         </Button>
       </Row>
+      <Track></Track>
+      <Track></Track>
+      <Track></Track>
+
+      <Row
+        style={{
+          marginTop: "25px",
+          marginLeft: "8px",
+          fontSize: "16px",
+          color: "darkgray",
+          textAlign: "center",
+          display: "flex",
+          borderBottom: "1px solid lightgrey",
+          paddingLeft: "10px",
+        }}
+      >
+        <img
+          style={{
+            margin: "auto",
+            marginRight: "8px",
+            marginLeft: "0px",
+            width: "30px",
+          }}
+          src="https://cdn0.iconfinder.com/data/icons/social-media-glyph-1/64/Facebook_Social_Media_User_Interface-38-512.png"
+          alt="ss"
+        />
+        <p>2 following</p>
+        <Button
+          type="text"
+          style={{
+            margin: "auto",
+            marginRight: "0px",
+            color: "darkgrey",
+            fontSize: "15px",
+          }}
+        >
+          View all
+        </Button>
+      </Row>
+      <Follower></Follower>
+      <Follower></Follower>
+      <Follower></Follower>
     </Col>
   );
   const items = [
@@ -116,7 +166,7 @@ const ProfileMenu = () => {
       label: <b style={{ fontSize: "17px" }}>My tracks</b>,
       children: (
         <Row>
-          <Col span={16} style={{ backgroundColor: "" }}></Col>
+          <Col span={17} style={{ backgroundColor: "" }}></Col>
           {detailsOwerview}
         </Row>
       ),
@@ -126,7 +176,7 @@ const ProfileMenu = () => {
       label: <b style={{ fontSize: "17px" }}>Following</b>,
       children: (
         <Row>
-          <Col span={16} style={{ backgroundColor: "" }}></Col>
+          <Col span={17} style={{ backgroundColor: "" }}></Col>
           {detailsOwerview}
         </Row>
       ),
@@ -136,7 +186,7 @@ const ProfileMenu = () => {
       label: <b style={{ fontSize: "17px" }}>Playlists</b>,
       children: (
         <Row>
-          <Col span={16} style={{ backgroundColor: "" }}></Col>
+          <Col span={17} style={{ backgroundColor: "" }}></Col>
           {detailsOwerview}
         </Row>
       ),
@@ -146,7 +196,7 @@ const ProfileMenu = () => {
       label: <b style={{ fontSize: "17px" }}>Likes</b>,
       children: (
         <Row>
-          <Col span={16} style={{ backgroundColor: "" }}></Col>
+          <Col span={17} style={{ backgroundColor: "" }}></Col>
           {detailsOwerview}
         </Row>
       ),

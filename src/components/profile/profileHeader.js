@@ -14,14 +14,14 @@ const ProfileHeader = (props) => {
       }}
     >
       <Row>
-        <Col span={8} style={{ marginLeft: "20px" }}>
+        <Col span={7} style={{ marginLeft: "20px" }}>
           <Avatar
             size={{
               xs: 100,
               sm: 130,
-              md: 220,
-              lg: 300,
-              xl: 270,
+              md: 200,
+              lg: 280,
+              xl: 250,
               xxl: 100,
             }}
             style={{
@@ -35,24 +35,27 @@ const ProfileHeader = (props) => {
         <Col span={5} style={{ marginLeft: "0" }}>
           <p
             style={{
-              backgroundColor: "black",
+              backgroundColor: "rgba(0, 0, 0, .8)",
               color: "white",
               width: "max-content",
-              fontSize: "20px",
+              fontSize: "30px",
               marginTop: "50px",
               marginLeft: "20px",
+              marginBottom: "8px",
+              padding: "6px", 
             }}
           >
             name
           </p>
           <p
             style={{
-              backgroundColor: "black",
+              backgroundColor: "rgba(0, 0, 0, .8)",
               color: "lightgrey",
               width: "max-content",
               fontSize: "15px",
-              marginTop: "10px",
+              marginTop: "1px",
               marginLeft: "20px",
+              padding: "5px"
             }}
           >
             Tomsk, Russian Federation
