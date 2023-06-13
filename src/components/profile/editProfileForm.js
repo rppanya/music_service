@@ -1,13 +1,16 @@
 import { Button, Form, Input, Modal, Row, Col, Avatar } from "antd";
 import FormItem from "antd/es/form/FormItem";
+
 import { useState } from "react";
 import { EditOutlined } from "@ant-design/icons";
 const EditProfileForm = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [form] = Form.useForm();
   const showModal = () => {
     setIsModalOpen(true);
   };
   const handleOk = () => {
+    props.editProfileThunkCreator(form.getFieldsValue());
     setIsModalOpen(false);
   };
   const handleCancel = () => {
@@ -15,23 +18,32 @@ const EditProfileForm = (props) => {
   };
   return (
     <>
-      <Button type="primary" onClick={showModal}>
-        Open Modal with async logic
+      <Button icon={<EditOutlined />} onClick={showModal}>
+        Edit
       </Button>
       <Modal
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
-        cancelButtonProps={{ style: {  } }}
+        cancelButtonProps={{ style: {} }}
         okButtonProps={{
           disabled: false,
-          style: {backgroundColor: "purple"}
+          style: { backgroundColor: "purple" },
         }}
         okText="Save changes"
       >
-        <h2 style={{ textAlign: "center", borderBottom: "1px solid maroon", marginBottom: "20px", paddingBottom: "3px"}}>Edit your Profile</h2>
+        <h2
+          style={{
+            textAlign: "center",
+            borderBottom: "1px solid maroon",
+            marginBottom: "20px",
+            paddingBottom: "3px",
+          }}
+        >
+          Edit your Profile
+        </h2>
 
-        <Form layout="vertical">
+        <Form layout="vertical" form={form}>
           <Row>
             <Col span={8}>
               <Avatar
@@ -43,17 +55,27 @@ const EditProfileForm = (props) => {
               </Button>
             </Col>
             <Col span={16}>
-              <FormItem label="Username">
+              <FormItem label="Username" name="username">
                 <Input placeholder="username"></Input>
               </FormItem>
               <Row style={{ display: "flex", justifyContent: "space-between" }}>
                 <Col span={12}>
-                  <FormItem layout="inline" label="First name" style={{marginRight: "5px"}}>
+                  <FormItem
+                    layout="inline"
+                    label="First name"
+                    name="name"
+                    style={{ marginRight: "5px" }}
+                  >
                     <Input placeholder="name"></Input>
                   </FormItem>
                 </Col>
                 <Col span={12}>
-                  <FormItem layout="inline" label="Last name" style={{marginLeft: "5px"}}>
+                  <FormItem
+                    layout="inline"
+                    label="Last name"
+                    name="surname"
+                    style={{ marginLeft: "5px" }}
+                  >
                     <Input placeholder="name"></Input>
                   </FormItem>
                 </Col>
@@ -61,12 +83,22 @@ const EditProfileForm = (props) => {
 
               <Row style={{ display: "flex", justifyContent: "space-between" }}>
                 <Col span={12}>
-                  <FormItem layout="inline" label="City" style={{marginRight: "5px"}}>
+                  <FormItem
+                    layout="inline"
+                    label="City"
+                    name="city"
+                    style={{ marginRight: "5px" }}
+                  >
                     <Input placeholder="name"></Input>
                   </FormItem>
                 </Col>
                 <Col span={12}>
-                  <FormItem layout="inline" label="Country" style={{marginLeft: "5px"}}>
+                  <FormItem
+                    layout="inline"
+                    label="Country"
+                    name="country"
+                    style={{ marginLeft: "5px" }}
+                  >
                     <Input placeholder="name"></Input>
                   </FormItem>
                 </Col>
@@ -74,7 +106,6 @@ const EditProfileForm = (props) => {
               <FormItem label="Bio">
                 <Input.TextArea placeholder="bio"></Input.TextArea>
               </FormItem>
-
             </Col>
           </Row>
         </Form>

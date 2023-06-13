@@ -2,6 +2,8 @@ import { Tabs, Button, Row, Col, Image } from "antd";
 import { HeartFilled, EditOutlined } from "@ant-design/icons";
 import Track from "./trackInMenu";
 import Follower from "./followerInMenu";
+import EditProfileFormContainer from "./editProfileFormContainer";
+import MyTracks from "./myTracks";
 
 const ProfileMenu = () => {
   const onChange = (key) => {
@@ -166,44 +168,46 @@ const ProfileMenu = () => {
       label: <b style={{ fontSize: "17px" }}>My tracks</b>,
       children: (
         <Row>
-          <Col span={17} style={{ backgroundColor: "" }}></Col>
+          <Col span={17} style={{ backgroundColor: "" }}>
+            <MyTracks></MyTracks>
+          </Col>
           {detailsOwerview}
         </Row>
       ),
     },
-    {
-      key: "2",
-      label: <b style={{ fontSize: "17px" }}>Following</b>,
-      children: (
-        <Row>
-          <Col span={17} style={{ backgroundColor: "" }}></Col>
-          {detailsOwerview}
-        </Row>
-      ),
-    },
-    {
-      key: "3",
-      label: <b style={{ fontSize: "17px" }}>Playlists</b>,
-      children: (
-        <Row>
-          <Col span={17} style={{ backgroundColor: "" }}></Col>
-          {detailsOwerview}
-        </Row>
-      ),
-    },
-    {
-      key: "4",
-      label: <b style={{ fontSize: "17px" }}>Likes</b>,
-      children: (
-        <Row>
-          <Col span={17} style={{ backgroundColor: "" }}></Col>
-          {detailsOwerview}
-        </Row>
-      ),
-    },
+    // {
+    //   key: "2",
+    //   label: <b style={{ fontSize: "17px" }}>Following</b>,
+    //   children: (
+    //     <Row>
+    //       <Col span={17} style={{ backgroundColor: "" }}></Col>
+    //       {detailsOwerview}
+    //     </Row>
+    //   ),
+    // },
+    // {
+    //   key: "3",
+    //   label: <b style={{ fontSize: "17px" }}>Playlists</b>,
+    //   children: (
+    //     <Row>
+    //       <Col span={17} style={{ backgroundColor: "" }}></Col>
+    //       {detailsOwerview}
+    //     </Row>
+    //   ),
+    // },
+    // {
+    //   key: "4",
+    //   label: <b style={{ fontSize: "17px" }}>Likes</b>,
+    //   children: (
+    //     <Row>
+    //       <Col span={17} style={{ backgroundColor: "" }}></Col>
+    //       {detailsOwerview}
+    //     </Row>
+    //   ),
+    // },
   ];
   const OperationsSlot = {
-    right: <Button icon={<EditOutlined />}>Edit</Button>,
+    right: <EditProfileFormContainer></EditProfileFormContainer>,
   };
   return (
     <div style={{ marginLeft: "30px", marginRight: "30px" }}>
