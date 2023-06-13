@@ -13,13 +13,18 @@ function getProfileInfo() {
   return instance.get(`${url}/profile`);
 }
 
-function changeProfileInfo(data){
-  return instance.put(`${url}`, data)
+function changeProfileInfo(data) {
+  return instance.put(`${url}`, data);
+}
+
+function logout() {
+  return instance.post(`${url}/logout`);
 }
 
 export const userApi = {
   registration: registration,
   login: login,
   getProfileInfo: getProfileInfo,
-  changeProfileInfo: changeProfileInfo
+  changeProfileInfo: changeProfileInfo,
+  logout: logout
 };

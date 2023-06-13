@@ -2,14 +2,14 @@ import "./App.css";
 
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 
-import Navbar from "./components/navbar/navbar";
+import NavbarContainer from "./components/navbar/navbarContainer";
 import ProfileContainer from "./components/profile/profileContainer";
 
 function App() {
   return (
     <div className="App">
       <div style={{ width: "100%", marginRight: "0"}}>
-        <Navbar></Navbar>
+        <NavbarContainer></NavbarContainer>
       </div>
 
       <Routes>

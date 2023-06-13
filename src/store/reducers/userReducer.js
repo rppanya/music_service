@@ -3,6 +3,7 @@ import { musicServiceApi } from "../../api/musicServiceApi";
 const LOGIN = "LOGIN";
 const REGISTRATION = "REGISTRATION";
 const GET_PROFILE_INFO = "GET_PROFILE_INFO";
+const LOGOUT = "LOGOUT";
 
 const initialState = {
   user: {
@@ -37,6 +38,24 @@ const userReducer = (state = initialState, action) => {
     case GET_PROFILE_INFO:
       newState.user = action.profileInfo;
       return newState;
+    case LOGOUT:
+      localStorage.removeItem("token");
+      newState.user = {
+        user: {
+          id: "",
+          email: "",
+          username: "",
+          name: "",
+          surname: "",
+          city: "",
+          country: "",
+          age: 0,
+          gender: "",
+          bio: "",
+          avatar: "",
+        },
+      };
+      return newState;
     default:
       return newState;
   }
@@ -54,10 +73,22 @@ function getProfileInfoActionCreator(data) {
   return { type: GET_PROFILE_INFO, profileInfo: data };
 }
 
+function logoutActionCreator() {
+  return { type: LOGOUT };
+}
+
+export function logoutThunkCreator() {
+  return (dispatch) => {
+    musicServiceApi.user.logout().then(() => {
+      dispatch(logoutActionCreator());
+    });
+  };
+}
+
 export function loginThunkCreator(data) {
   return (dispatch) => {
     musicServiceApi.user.login(data).then((data) => {
-      console.log(data)
+      console.log(data);
       dispatch(loginActionCreator(data.token));
     });
   };
