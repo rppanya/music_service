@@ -1,18 +1,20 @@
-import { Tabs, Button, Row, Col, Image } from "antd";
+import { Tabs, Button, Row, Col, Image, ConfigProvider } from "antd";
 import { HeartFilled, EditOutlined } from "@ant-design/icons";
 import Track from "./trackInMenu";
 import Follower from "./followerInMenu";
 import EditProfileFormContainer from "./editProfileFormContainer";
 import MyTracks from "./myTracks";
+import { useNavigate } from "react-router-dom";
 
 const ProfileMenu = (props) => {
   const onChange = (key) => {
     console.log(key);
   };
+  const navigate = useNavigate();
   const detailsOwerview = (
-    <Col span={7} style={{ borderLeft: "1px solid lightgrey" }}>
+    <Col span={7} style={{ borderLeft: "1px solid #F0F0F0" }}>
       <Row style={{ paddingLeft: "10px" }}>
-        <Col span={8} style={{ borderRight: "1px solid lightgrey" }}>
+        <Col span={8} style={{ borderRight: "1px solid #F0F0F0" }}>
           <p
             style={{
               margin: "0",
@@ -36,7 +38,7 @@ const ProfileMenu = (props) => {
             {props.followersCount}
           </p>
         </Col>
-        <Col span={8} style={{ borderRight: "1px solid lightgrey" }}>
+        <Col span={8} style={{ borderRight: "1px solid #F0F0F0" }}>
           <p
             style={{
               margin: "0",
@@ -93,7 +95,7 @@ const ProfileMenu = (props) => {
           color: "darkgray",
           textAlign: "center",
           display: "flex",
-          borderBottom: "1px solid lightgrey",
+          borderBottom: "1px solid #F0F0F0",
           paddingLeft: "10px",
         }}
       >
@@ -114,6 +116,8 @@ const ProfileMenu = (props) => {
             color: "darkgrey",
             fontSize: "15px",
           }}
+          onClick={()=> {navigate("/details")}}
+
         >
           View all
         </Button>
@@ -130,7 +134,7 @@ const ProfileMenu = (props) => {
           color: "darkgray",
           textAlign: "center",
           display: "flex",
-          borderBottom: "1px solid lightgrey",
+          borderBottom: "1px solid #F0F0F0",
           paddingLeft: "10px",
         }}
       >
@@ -140,7 +144,7 @@ const ProfileMenu = (props) => {
             marginRight: "8px",
             marginLeft: "0px",
             width: "30px",
-            height: "29px"
+            height: "29px",
           }}
           src={require("../../images/people.png")}
           alt="ss"
@@ -154,6 +158,7 @@ const ProfileMenu = (props) => {
             color: "darkgrey",
             fontSize: "15px",
           }}
+          onClick={()=> {navigate("/details")}}
         >
           View all
         </Button>
@@ -175,19 +180,28 @@ const ProfileMenu = (props) => {
           {detailsOwerview}
         </Row>
       ),
-    }
+    },
   ];
   const OperationsSlot = {
     right: <EditProfileFormContainer></EditProfileFormContainer>,
   };
   return (
     <div style={{ marginLeft: "30px", marginRight: "30px" }}>
-      <Tabs
-        tabBarExtraContent={OperationsSlot}
-        defaultActiveKey="1"
-        items={items}
-        onChange={onChange}
-      ></Tabs>
+      <ConfigProvider
+        theme={{
+          token: {
+            colorPrimary: "purple",
+          },
+        }}
+      >
+        <Tabs
+          tabBarExtraContent={OperationsSlot}
+          defaultActiveKey="1"
+          items={items}
+          onChange={onChange}
+          style={{ color: "black" }}
+        ></Tabs>
+      </ConfigProvider>
     </div>
   );
 };
