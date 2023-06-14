@@ -3,11 +3,12 @@ const baseURL = "http://212.113.118.22:8080/";
 
 const instance = axios.create({
   baseURL: baseURL,
-  headers: {
-    "Content-Type": "application/json",
-    //"Content-Type": "multipart/form-data",
-    Accept: "application/json",
-  },
+  // headers: {
+  //   //"Content-Type": "application/json",
+  //   "Content-Type": "multipart/form-data",
+  //   //Accept: "application/json",
+  //   Accept: "application/json, multipart/form-data"
+  // },
 });
 
 instance.interceptors.request.use((config) => {
