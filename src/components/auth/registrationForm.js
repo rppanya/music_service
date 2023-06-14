@@ -121,7 +121,6 @@ const RegistrationForm = (props) => {
               console.log(data);
               props.registrationThunkCreator(data);
               setIsModalOpen(false);
-              navigate("/profile");
             }}
           >
             Sign up

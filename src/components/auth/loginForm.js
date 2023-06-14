@@ -30,7 +30,6 @@ const LoginForm = (props) => {
     console.log({ email: email, password: password });
     props.loginThunkCreator({ email: email, password: password });
     setIsModalOpen(false);
-    //navigate("/profile");
   };
 
   return (

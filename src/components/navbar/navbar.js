@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Button, Avatar, Menu, Input } from "antd";
+import { Button, Avatar, Menu, Input, Modal } from "antd";
 import LoginFormContainer from "../auth/loginFormContainer";
 import RegistrationFormContainer from "../auth/registretionFormContainer";
 import { useNavigate } from "react-router-dom";
@@ -10,10 +10,29 @@ const Navbar = (props) => {
   const token = localStorage.getItem("token")
     ? localStorage.getItem("token")
     : null;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [file, setFile] = useState(null);
 
   const logout = () => {
     props.logoutThunkCreator();
   };
+
+  const showModal = () => {
+    console.log("show");
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    const formData = new FormData();
+    formData.append("file", file);
+    console.log("close");
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    console.log("close4");
+
+    setIsModalOpen(false);
+  };
+
   const authorizeMenu = (
     <Menu
       theme="dark"
@@ -43,6 +62,13 @@ const Navbar = (props) => {
       >
         <Input.Search style={{ width: "400px" }}></Input.Search>
       </div>
+      <Button type="link" onClick={showModal} style={{ color: "white" }}>
+        <img
+          src={require("../../images/upload.png")}
+          style={{ height: "26px" }}
+        ></img>
+      </Button>
+
       <Button
         type="link"
         onClick={() => {
@@ -66,10 +92,10 @@ const Navbar = (props) => {
           style={{ height: "26px" }}
         ></img>
       </Button>
-      <Button type="link" onClick={() => logout()}>
+      <Button type="link" onClick={() => logout()} style={{marginLeft: "10px"}}>
         <img
           src={require("../../images/logout.png")}
-          style={{ height: "26px" }}
+          style={{ height: "24px" }}
         ></img>
       </Button>
     </Menu>
@@ -102,14 +128,6 @@ const Navbar = (props) => {
         }}
       >
         <Input.Search style={{ width: "400px" }}></Input.Search>
-        {/* <Button
-          type="link"
-          onClick={() => {
-            navigate("/profile");
-          }}
-        >
-          Home
-        </Button> */}
       </div>
       <LoginFormContainer></LoginFormContainer>
       <RegistrationFormContainer></RegistrationFormContainer>
@@ -122,6 +140,7 @@ const Navbar = (props) => {
       setMenu(authorizeMenu);
     } else {
       setMenu(unauthorizeMenu);
+      navigate("/");
     }
   }, [props]);
 
@@ -131,6 +150,22 @@ const Navbar = (props) => {
     }
   }, []);
 
-  return currentMenu;
+  return (
+    <>
+      {currentMenu}
+      <Modal
+        title="Загрузить музыку"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <Input
+          type="file"
+          accept="audio/*"
+          onInput={(e) => setFile(e.target.value)}
+        ></Input>
+      </Modal>
+    </>
+  );
 };
 export default Navbar;
