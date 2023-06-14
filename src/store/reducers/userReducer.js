@@ -4,6 +4,7 @@ const LOGIN = "LOGIN";
 const REGISTRATION = "REGISTRATION";
 const GET_PROFILE_INFO = "GET_PROFILE_INFO";
 const LOGOUT = "LOGOUT";
+const UPLOAD_HEADER_IMAGE = "UPLOAD_HEADER_IMAGE";
 
 const initialState = {
   user: {
@@ -113,6 +114,16 @@ export function getProfileInfoThunkCreator() {
 export function editProfileThunkCreator(data) {
   return (dispatch) => {
     musicServiceApi.user.changeProfileInfo(data).then(() => {
+      musicServiceApi.user.getProfileInfo().then((data) => {
+        dispatch(getProfileInfoActionCreator(data));
+      });
+    });
+  };
+}
+
+export function uploadHeaderImageThunkCreator(image) {
+  return (dispatch) => {
+    musicServiceApi.user.uploadHeaderImage(image).then(() => {
       musicServiceApi.user.getProfileInfo().then((data) => {
         dispatch(getProfileInfoActionCreator(data));
       });

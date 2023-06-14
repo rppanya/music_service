@@ -5,7 +5,7 @@ import Follower from "./followerInMenu";
 import EditProfileFormContainer from "./editProfileFormContainer";
 import MyTracks from "./myTracks";
 
-const ProfileMenu = () => {
+const ProfileMenu = (props) => {
   const onChange = (key) => {
     console.log(key);
   };
@@ -33,7 +33,7 @@ const ProfileMenu = () => {
               paddingLeft: "8px",
             }}
           >
-            1
+            {props.followersCount}
           </p>
         </Col>
         <Col span={8} style={{ borderRight: "1px solid lightgrey" }}>
@@ -57,7 +57,7 @@ const ProfileMenu = () => {
               paddingLeft: "8px",
             }}
           >
-            1
+            {props.followingCount}
           </p>
         </Col>
         <Col span={8}>
@@ -81,7 +81,7 @@ const ProfileMenu = () => {
               paddingLeft: "8px",
             }}
           >
-            1
+            {props.uploadedSongsCount}
           </p>
         </Col>
       </Row>
@@ -102,10 +102,10 @@ const ProfileMenu = () => {
             margin: "auto",
             marginRight: "8px",
             marginLeft: "0px",
-            color: "black",
+            color: "darkgrey",
           }}
         />
-        <p>159 likes</p>
+        <p>{props.likesCount}</p>
         <Button
           type="text"
           style={{
@@ -140,11 +140,12 @@ const ProfileMenu = () => {
             marginRight: "8px",
             marginLeft: "0px",
             width: "30px",
+            height: "29px"
           }}
-          src="https://cdn0.iconfinder.com/data/icons/social-media-glyph-1/64/Facebook_Social_Media_User_Interface-38-512.png"
+          src={require("../../images/people.png")}
           alt="ss"
         />
-        <p>2 following</p>
+        <p>{props.followingCount} following</p>
         <Button
           type="text"
           style={{
@@ -174,37 +175,7 @@ const ProfileMenu = () => {
           {detailsOwerview}
         </Row>
       ),
-    },
-    // {
-    //   key: "2",
-    //   label: <b style={{ fontSize: "17px" }}>Following</b>,
-    //   children: (
-    //     <Row>
-    //       <Col span={17} style={{ backgroundColor: "" }}></Col>
-    //       {detailsOwerview}
-    //     </Row>
-    //   ),
-    // },
-    // {
-    //   key: "3",
-    //   label: <b style={{ fontSize: "17px" }}>Playlists</b>,
-    //   children: (
-    //     <Row>
-    //       <Col span={17} style={{ backgroundColor: "" }}></Col>
-    //       {detailsOwerview}
-    //     </Row>
-    //   ),
-    // },
-    // {
-    //   key: "4",
-    //   label: <b style={{ fontSize: "17px" }}>Likes</b>,
-    //   children: (
-    //     <Row>
-    //       <Col span={17} style={{ backgroundColor: "" }}></Col>
-    //       {detailsOwerview}
-    //     </Row>
-    //   ),
-    // },
+    }
   ];
   const OperationsSlot = {
     right: <EditProfileFormContainer></EditProfileFormContainer>,
