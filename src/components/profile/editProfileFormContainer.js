@@ -5,7 +5,6 @@ import { editProfileThunkCreator } from "../../store/reducers/userReducer";
 import EditProfileForm from "./editProfileForm";
 
 function MiddleEditProfileFormContainer(props) {
-  console.log(props);
   return <EditProfileForm {...props} />;
 }
 

@@ -21,10 +21,17 @@ function logout() {
   return instance.post(`${url}/logout`);
 }
 
+function uploadHeaderImage(image) {
+  return instance.put(`${url}/upload-header-image`, image, {
+    headers: {},
+  });
+}
+
 export const userApi = {
   registration: registration,
   login: login,
   getProfileInfo: getProfileInfo,
   changeProfileInfo: changeProfileInfo,
-  logout: logout
+  logout: logout,
+  uploadHeaderImage: uploadHeaderImage,
 };

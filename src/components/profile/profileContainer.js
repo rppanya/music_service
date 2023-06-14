@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
 
 import { connect } from "react-redux";
-import { getProfileInfoThunkCreator } from "../../store/reducers/userReducer";
+import {
+  getProfileInfoThunkCreator,
+  uploadHeaderImageThunkCreator,
+} from "../../store/reducers/userReducer";
 import Profile from "./profile";
 
 function MiddleProfileContainer(props) {
-  console.log(props);
   useEffect(() => {
     props.getProfileInfoThunkCreator();
   }, []);
@@ -13,11 +15,12 @@ function MiddleProfileContainer(props) {
 }
 
 function mapStateToProps(state) {
-  return { user: state.user };
+  return { user: state.user.user };
 }
 
 const ProfileContainer = connect(mapStateToProps, {
   getProfileInfoThunkCreator,
+  uploadHeaderImageThunkCreator,
 })(MiddleProfileContainer);
 
 export default ProfileContainer;

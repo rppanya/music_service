@@ -5,6 +5,7 @@ const instance = axios.create({
   baseURL: baseURL,
   headers: {
     "Content-Type": "application/json",
+    //"Content-Type": "multipart/form-data",
     Accept: "application/json",
   },
 });
@@ -22,7 +23,7 @@ instance.interceptors.response.use(
     return response.data;
   },
   (error) => {
-    console.log(error.response)
+    console.log(error)
     return { error: error.response, isError: true };
   }
 );

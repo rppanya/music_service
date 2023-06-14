@@ -56,7 +56,7 @@ const EditProfileForm = (props) => {
             </Col>
             <Col span={16}>
               <FormItem label="Username" name="username">
-                <Input placeholder="username"></Input>
+                <Input placeholder="username" defaultValue={props.user.user.username}></Input>
               </FormItem>
               <Row style={{ display: "flex", justifyContent: "space-between" }}>
                 <Col span={12}>
@@ -66,7 +66,7 @@ const EditProfileForm = (props) => {
                     name="name"
                     style={{ marginRight: "5px" }}
                   >
-                    <Input placeholder="name"></Input>
+                    <Input placeholder="name" defaultValue={props.user.user.name}></Input>
                   </FormItem>
                 </Col>
                 <Col span={12}>
@@ -76,7 +76,7 @@ const EditProfileForm = (props) => {
                     name="surname"
                     style={{ marginLeft: "5px" }}
                   >
-                    <Input placeholder="name"></Input>
+                    <Input placeholder="surname" defaultValue={props.user.user.surname}></Input>
                   </FormItem>
                 </Col>
               </Row>
@@ -89,7 +89,7 @@ const EditProfileForm = (props) => {
                     name="city"
                     style={{ marginRight: "5px" }}
                   >
-                    <Input placeholder="name"></Input>
+                    <Input placeholder="city" defaultValue={props.user.user.city}></Input>
                   </FormItem>
                 </Col>
                 <Col span={12}>
@@ -99,12 +99,12 @@ const EditProfileForm = (props) => {
                     name="country"
                     style={{ marginLeft: "5px" }}
                   >
-                    <Input placeholder="name"></Input>
+                    <Input placeholder="country" defaultValue={props.user.user.country}></Input>
                   </FormItem>
                 </Col>
               </Row>
-              <FormItem label="Bio">
-                <Input.TextArea placeholder="bio"></Input.TextArea>
+              <FormItem label="Bio" name="bio">
+                <Input.TextArea placeholder="bio" defaultValue={props.user.user.bio}></Input.TextArea>
               </FormItem>
             </Col>
           </Row>

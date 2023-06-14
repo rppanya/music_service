@@ -6,7 +6,6 @@ import RegistrationFormContainer from "../auth/registretionFormContainer";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = (props) => {
-  console.log(props);
   const navigate = useNavigate();
   const token = localStorage.getItem("token")
     ? localStorage.getItem("token")

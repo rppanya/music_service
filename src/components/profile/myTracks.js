@@ -3,7 +3,6 @@ import Track from "./track";
 
 const MyTracks = () => {
   const handleChange = (event) => {
-    console.log(event.target.files);
   };
 
   return (
