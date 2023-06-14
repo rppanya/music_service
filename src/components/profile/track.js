@@ -8,7 +8,7 @@ import {
 const Track = (props) => {
   return (
     <Card
-      style={{ border: "0", margin: "5px" }}
+      style={{ border: "0", marginTop: "5px"}}
       bodyStyle={{ margin: "0", padding: "0", border: "0" }}
       hoverable
     >
@@ -18,18 +18,18 @@ const Track = (props) => {
           marginTop: "0",
         }}
       >
-        <Col span={3} style={{ height: "max-content", marginTop: "10px" }}>
+        <Col span={4} style={{ height: "max-content", marginTop: "0px", display: "flex"}}>
           <Image
             style={{ borderRadius: "10px" }}
-            width={60}
+            width={50}
             src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
             preview={false}
           />
         </Col>
         <Col
-          span={10}
+          span={9}
           style={{
-            lineHeight: "75px",
+            lineHeight: "45px",
             fontSize: "17px",
             color: "purple",
             textAlign: "start",
@@ -40,7 +40,7 @@ const Track = (props) => {
         <Col
           span={9}
           style={{
-            lineHeight: "75px",
+            lineHeight: "45px",
             fontSize: "15px",
             color: "purple",
             textAlign: "start",
@@ -51,7 +51,7 @@ const Track = (props) => {
         <Col span={2} style={{ paddingRight: "10px" }}>
           <HeartFilled
             style={{
-              marginTop: "18px",
+              marginTop: "0px",
 
               color: "darkGrey",
               fontSize: "17px",
