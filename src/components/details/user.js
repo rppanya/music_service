@@ -9,10 +9,10 @@ const User = (props) => {
       
     >
       <Avatar
-        size={{ xs: 90, sm: 100, md: 120, lg: 150, xl: 180, xxl: 70 }}
+        size={{ xs: 90, sm: 100, md: 100, lg: 150, xl: 180, xxl: 70 }}
         icon={<AntDesignOutlined style={{ margin: "0", padding: "0" }} />}
       />
-      <p style={{ margin: "0", fontSize: "15px" }}>name</p>
+      <p style={{ margin: "0", fontSize: "15px" }}>{props.userInfo.username}</p>
       <Row style={{ display: "flex", justifyContent: "center" }}>
         <img
           style={{
@@ -25,7 +25,7 @@ const User = (props) => {
           src={require("../../images/people.png")}
           alt="ss"
         />
-        <b style={{ fontWeight: "normal", fontSize: "12px" }}>120 followers</b>
+        <b style={{ fontWeight: "normal", fontSize: "12px" }}>{props.userInfo.followersCount} followers</b>
       </Row>
     </Card>
   );
