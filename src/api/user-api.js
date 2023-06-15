@@ -38,7 +38,12 @@ function logout() {
 }
 
 function uploadHeaderImage(image) {
-  return instance.put(`${url}/upload-header-image`, image);
+  return instance.put(`${url}/upload-header-image`, image, {
+    header: {
+      //"Content-Type": "multipart/form-data",
+      "Accept" : "*/*",
+    }
+  });
 }
 
 function usersSearch(searchString) {

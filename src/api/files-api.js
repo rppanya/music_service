@@ -12,7 +12,7 @@ function uploadFile(file) {
 function downloadFile(id) {
   return instance.get(`${url}/download/${id}`, {
     headers: {
-      "Content-Type": "multipart/form-data",
+      "Content-Type": "application/octet-stream",
     },
   });
 }

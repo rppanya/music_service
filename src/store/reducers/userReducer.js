@@ -1,12 +1,14 @@
+import { SELECTION_ALL } from "antd/es/table/hooks/useSelection";
 import { musicServiceApi } from "../../api/musicServiceApi";
 
 const LOGIN = "LOGIN";
 const REGISTRATION = "REGISTRATION";
 const GET_PROFILE_INFO = "GET_PROFILE_INFO";
 const LOGOUT = "LOGOUT";
-//const UPLOAD_HEADER_IMAGE = "UPLOAD_HEADER_IMAGE";
+const UPLOAD_HEADER_IMAGE = "UPLOAD_HEADER_IMAGE";
 const USERS_SEARCH = "USERS_SEARCH";
 const GET_PROFILE_INFO_ID = "GET_PROFILE_INFO_ID ";
+const DOWNLOAD_AVATAR_AND_HEADER = "DOWNLOAD_AVATAR_AND_HEADER";
 
 const initialState = {
   user: {
@@ -21,7 +23,14 @@ const initialState = {
     gender: "",
     bio: "",
     avatar: "",
+    headerImage: "",
+    followersCount: 0,
+    followingCount: 0,
+    likesCount: 0,
+    uploadedSongsCount: 0,
   },
+  avatarBin: "",
+  headerImageBin: "",
   usersSearch: [],
   anotherUser: {
     id: "",
@@ -54,6 +63,9 @@ const userReducer = (state = initialState, action) => {
       return newState;
     case GET_PROFILE_INFO:
       newState.user = action.profileInfo;
+      newState.avatarBin = action.avatarBin;
+      newState.headerImageBin = action.headerImageBin;
+      console.log(newState);
       return newState;
     case LOGOUT:
       localStorage.removeItem("token");
@@ -73,6 +85,21 @@ const userReducer = (state = initialState, action) => {
         },
       };
       return newState;
+    case USERS_SEARCH:
+      newState.usersSearch = action.result;
+      return newState;
+    case GET_PROFILE_INFO_ID:
+      newState.anotherUser = action.data;
+      return newState;
+    case UPLOAD_HEADER_IMAGE:
+      newState.user.headerImage = action.url;
+      console.log(action.url);
+      return newState;
+    case DOWNLOAD_AVATAR_AND_HEADER:
+      newState.avatarBin = action.avatarBin;
+      newState.headerImageBin = action.headerBin;
+      console.log(newState.user);
+      return newState;
     default:
       return newState;
   }
@@ -86,8 +113,23 @@ function registrationActionCreator(token) {
   return { type: REGISTRATION, token: token };
 }
 
-function getProfileInfoActionCreator(data) {
-  return { type: GET_PROFILE_INFO, profileInfo: data };
+function getProfileInfoActionCreator(data, avatarBin, headerImageBin) {
+  return {
+    type: GET_PROFILE_INFO,
+    profileInfo: data,
+    avatarBin: avatarBin,
+    headerImageBin: headerImageBin,
+  };
+}
+
+function downloadAvatarAndHeaderActionCreator(avatarBin, headerBin) {
+  //console.log(avatarBin, headerBin);
+
+  return {
+    type: DOWNLOAD_AVATAR_AND_HEADER,
+    avatarBin: avatarBin,
+    headerBin: headerBin,
+  };
 }
 
 function logoutActionCreator() {
@@ -99,7 +141,11 @@ function searchUsersActionCreator(result) {
 }
 
 function getProfileInfoIDActionCreator(data) {
-  return {type: GET_PROFILE_INFO_ID, data: data}
+  return { type: GET_PROFILE_INFO_ID, data: data };
+}
+
+function uploadHeaderImageActionCreator(url) {
+  return { type: UPLOAD_HEADER_IMAGE, url: url };
 }
 
 export function logoutThunkCreator() {
@@ -130,7 +176,40 @@ export function registrationThunkCreator(data) {
 export function getProfileInfoThunkCreator() {
   return (dispatch) => {
     musicServiceApi.user.getProfileInfo().then((data) => {
-      dispatch(getProfileInfoActionCreator(data));
+      if (data.avatar) {
+        musicServiceApi.files.downloadFile(data.avatar).then((avatarBin) => {
+          if (data.headerImage) {
+            musicServiceApi.files
+              .downloadFile(data.headerImage)
+              .then((headerImageBin) => {
+                dispatch(
+                  getProfileInfoActionCreator(data, avatarBin, headerImageBin)
+                );
+              });
+          }
+        });
+      } else if (data.headerImage) {
+        musicServiceApi.files
+          .downloadFile(data.headerImage)
+          .then((headerImageBin) => {
+            dispatch(getProfileInfoActionCreator(data, null, headerImageBin));
+          });
+      } else {
+        dispatch(getProfileInfoActionCreator(data, null, null));
+      }
+    });
+  };
+}
+
+export function downloadAvatarAndHeaderThunkCreator(avatarId, headerId) {
+  //console.log(avatarId, headerId);
+  return (dispatch) => {
+    musicServiceApi.files.downloadFile(headerId).then((headerBin) => {
+      //console.log(headerBin);
+      musicServiceApi.files.downloadFile(avatarId).then((avatarBin) => {
+        //console.log(avatarBin);
+        dispatch(downloadAvatarAndHeaderActionCreator(avatarBin, headerBin));
+      });
     });
   };
 }
@@ -139,7 +218,27 @@ export function editProfileThunkCreator(data) {
   return (dispatch) => {
     musicServiceApi.user.changeProfileInfo(data).then(() => {
       musicServiceApi.user.getProfileInfo().then((data) => {
-        dispatch(getProfileInfoActionCreator(data));
+        if (data.avatar) {
+          musicServiceApi.files.downloadFile(data.avatar).then((avatarBin) => {
+            if (data.headerImage) {
+              musicServiceApi.files
+                .downloadFile(data.headerImage)
+                .then((headerImageBin) => {
+                  dispatch(
+                    getProfileInfoActionCreator(data, avatarBin, headerImageBin)
+                  );
+                });
+            }
+          });
+        } else if (data.headerImage) {
+          musicServiceApi.files
+            .downloadFile(data.headerImage)
+            .then((headerImageBin) => {
+              dispatch(getProfileInfoActionCreator(data, null, headerImageBin));
+            });
+        } else {
+          dispatch(getProfileInfoActionCreator(data, null, null));
+        }
       });
     });
   };
@@ -147,9 +246,29 @@ export function editProfileThunkCreator(data) {
 
 export function uploadHeaderImageThunkCreator(image) {
   return (dispatch) => {
-    musicServiceApi.user.uploadHeaderImage(image).then(() => {
+    musicServiceApi.user.uploadHeaderImage(image).then((data) => {
       musicServiceApi.user.getProfileInfo().then((data) => {
-        dispatch(getProfileInfoActionCreator(data));
+        if (data.avatar) {
+          musicServiceApi.files.downloadFile(data.avatar).then((avatarBin) => {
+            if (data.headerImage) {
+              musicServiceApi.files
+                .downloadFile(data.headerImage)
+                .then((headerImageBin) => {
+                  dispatch(
+                    getProfileInfoActionCreator(data, avatarBin, headerImageBin)
+                  );
+                });
+            }
+          });
+        } else if (data.headerImage) {
+          musicServiceApi.files
+            .downloadFile(data.headerImage)
+            .then((headerImageBin) => {
+              dispatch(getProfileInfoActionCreator(data, null, headerImageBin));
+            });
+        } else {
+          dispatch(getProfileInfoActionCreator(data, null, null));
+        }
       });
     });
   };
@@ -166,8 +285,8 @@ export function searchUsersThunkCreator(searchString) {
 export function getProfileInfoIdThunkCreator(id) {
   return (dispatch) => {
     musicServiceApi.user.getProfileInfoID(id).then((data) => {
-      dispatch(getProfileInfoIDActionCreator(data))
-    })
+      dispatch(getProfileInfoIDActionCreator(data));
+    });
   };
 }
 
