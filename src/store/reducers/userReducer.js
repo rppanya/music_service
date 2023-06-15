@@ -4,10 +4,26 @@ const LOGIN = "LOGIN";
 const REGISTRATION = "REGISTRATION";
 const GET_PROFILE_INFO = "GET_PROFILE_INFO";
 const LOGOUT = "LOGOUT";
-const UPLOAD_HEADER_IMAGE = "UPLOAD_HEADER_IMAGE";
+//const UPLOAD_HEADER_IMAGE = "UPLOAD_HEADER_IMAGE";
+const USERS_SEARCH = "USERS_SEARCH";
+const GET_PROFILE_INFO_ID = "GET_PROFILE_INFO_ID ";
 
 const initialState = {
   user: {
+    id: "",
+    email: "",
+    username: "",
+    name: "",
+    surname: "",
+    city: "",
+    country: "",
+    age: 0,
+    gender: "",
+    bio: "",
+    avatar: "",
+  },
+  usersSearch: [],
+  anotherUser: {
     id: "",
     email: "",
     username: "",
@@ -78,6 +94,14 @@ function logoutActionCreator() {
   return { type: LOGOUT };
 }
 
+function searchUsersActionCreator(result) {
+  return { type: USERS_SEARCH, result: result };
+}
+
+function getProfileInfoIDActionCreator(data) {
+  return {type: GET_PROFILE_INFO_ID, data: data}
+}
+
 export function logoutThunkCreator() {
   return (dispatch) => {
     musicServiceApi.user.logout().then(() => {
@@ -128,6 +152,22 @@ export function uploadHeaderImageThunkCreator(image) {
         dispatch(getProfileInfoActionCreator(data));
       });
     });
+  };
+}
+
+export function searchUsersThunkCreator(searchString) {
+  return (dispatch) => {
+    musicServiceApi.user.usersSearch(searchString).then((data) => {
+      dispatch(searchUsersActionCreator(data));
+    });
+  };
+}
+
+export function getProfileInfoIdThunkCreator(id) {
+  return (dispatch) => {
+    musicServiceApi.user.getProfileInfoID(id).then((data) => {
+      dispatch(getProfileInfoIDActionCreator(data))
+    })
   };
 }
 

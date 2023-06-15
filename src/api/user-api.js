@@ -65,5 +65,5 @@ export const userApi = {
   logout: logout,
   uploadHeaderImage: uploadHeaderImage,
   usersSearch: usersSearch,
-  getProfileInfoID: getProfileInfoID
+  getProfileInfoID: getProfileInfoID,
 };

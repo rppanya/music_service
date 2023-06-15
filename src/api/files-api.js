@@ -18,7 +18,7 @@ function downloadFile(id) {
 }
 
 
-export default filesApi = {
+export const filesApi = {
     uploadFile: uploadFile,
     downloadFile: downloadFile
 };
