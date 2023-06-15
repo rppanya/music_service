@@ -2,29 +2,16 @@ import User from "./user";
 const { List } = require("antd");
 
 const UsersContainer = (props) => {
-  const data = [
-    {
-      title: "Title 1",
-    },
-    {
-      title: "Title 2",
-    },
-    {
-      title: "Title 3",
-    },
-    {
-      title: "Title 4",
-    },
-    {
-      title: "Title 5",
-    },
-    {
-      title: "Title 6",
-    },
-    {
-        title: "Title 7",
-      },
-  ];
+  const data = props.users;
+  // ? new Array(props.users.length).fill(null).map((element) => {
+  //     console.log(element)
+  //     const id = element.id;
+  //     return {
+  //       label: `Tab`,
+  //     };
+  //   })
+  // : null;
+
   return (
     <div style={{ marginRight: "30px", marginBottom: "20px" }}>
       <List
@@ -38,9 +25,9 @@ const UsersContainer = (props) => {
           xxl: 3,
         }}
         dataSource={data}
-        renderItem={() => (
+        renderItem={(element) => (
           <List.Item>
-            <User></User>
+            <User userInfo={element}></User>
           </List.Item>
         )}
       />

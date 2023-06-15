@@ -187,13 +187,7 @@ const ProfileMenu = (props) => {
   };
   return (
     <div style={{ marginLeft: "30px", marginRight: "30px" }}>
-      <ConfigProvider
-        theme={{
-          token: {
-            colorPrimary: "purple",
-          },
-        }}
-      >
+      
         <Tabs
           tabBarExtraContent={OperationsSlot}
           defaultActiveKey="1"
@@ -201,7 +195,6 @@ const ProfileMenu = (props) => {
           onChange={onChange}
           style={{ color: "black" }}
         ></Tabs>
-      </ConfigProvider>
     </div>
   );
 };

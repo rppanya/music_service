@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import { Button, Avatar, Menu, Input, Modal } from "antd";
 import LoginFormContainer from "../auth/loginFormContainer";
 import RegistrationFormContainer from "../auth/registretionFormContainer";
@@ -24,12 +23,9 @@ const Navbar = (props) => {
   const handleOk = () => {
     const formData = new FormData();
     formData.append("file", file);
-    console.log("close");
     setIsModalOpen(false);
   };
   const handleCancel = () => {
-    console.log("close4");
-
     setIsModalOpen(false);
   };
 
@@ -60,7 +56,14 @@ const Navbar = (props) => {
           padding: "0",
         }}
       >
-        <Input.Search style={{ width: "400px" }}></Input.Search>
+        <Input.Search
+          style={{ width: "400px" }}
+          onSearch={(value) => {
+            if (value) {
+              navigate(`/search?searchString=${value}`);
+            }
+          }}
+        ></Input.Search>
       </div>
       <Button type="link" onClick={showModal} style={{ color: "white" }}>
         <img
@@ -82,9 +85,9 @@ const Navbar = (props) => {
             margin: "0",
             boxShadow: "1px 1px 10px 1px rgba(0, 0, 0, .4)",
           }}
-          src="https://koshka.top/uploads/posts/2021-12/1638411940_1-koshka-top-p-kota-iz-shreka-s-grustnimi-1.jpg"
+          src={props.avatarBin}
         />
-        {props.user.username}
+        {/* {props.user.username} */}
       </Button>
       <Button type="link">
         <img
@@ -92,7 +95,11 @@ const Navbar = (props) => {
           style={{ height: "26px" }}
         ></img>
       </Button>
-      <Button type="link" onClick={() => logout()} style={{marginLeft: "10px"}}>
+      <Button
+        type="link"
+        onClick={() => logout()}
+        style={{ marginLeft: "10px" }}
+      >
         <img
           src={require("../../images/logout.png")}
           style={{ height: "24px" }}
