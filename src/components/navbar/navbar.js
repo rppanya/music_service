@@ -60,7 +60,7 @@ const Navbar = (props) => {
           padding: "0",
         }}
       >
-        <Input.Search style={{ width: "400px" }}></Input.Search>
+        <Input.Search style={{ width: "400px" }} onSearch={() => navigate("/search")}></Input.Search>
       </div>
       <Button type="link" onClick={showModal} style={{ color: "white" }}>
         <img

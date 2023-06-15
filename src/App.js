@@ -5,6 +5,8 @@ import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import NavbarContainer from "./components/navbar/navbarContainer";
 import ProfileContainer from "./components/profile/profileContainer";
 import Details from "./components/details/detailsContainer";
+import Author from "./components/author/author";
+import Search from "./components/search/search";
 
 function App() {
   return (
@@ -45,6 +47,35 @@ function App() {
             </div>
           }
         ></Route>
+        <Route
+          path="/author"
+          element={
+            <div>
+              <div
+                style={{
+                  marginLeft: "8%",
+                  marginRight: "8%",
+                  backgroundColor: "white",
+                }}
+              >
+                <Author></Author>
+              </div>
+            </div>
+          }
+        ></Route>
+        <Route path="/search" element={<div>
+              <div
+                style={{
+                  marginLeft: "8%",
+                  marginRight: "8%",
+                  backgroundColor: "white",
+                  paddingTop: "20px",
+                  paddingBottom: "20px"
+                }}
+              >
+                <Search></Search>
+              </div>
+            </div>}></Route>
       </Routes>
     </div>
   );
