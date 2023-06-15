@@ -1,21 +1,40 @@
 import { Button, Form, Input, Modal, Row, Col, Avatar } from "antd";
 import FormItem from "antd/es/form/FormItem";
-
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { EditOutlined } from "@ant-design/icons";
+import Upload from "antd/es/upload/Upload";
+
 const EditProfileForm = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form] = Form.useForm();
+  const [file, setFile] = useState(null);
+  const [avatar, setAvatar] = useState(null);
   const showModal = () => {
     setIsModalOpen(true);
   };
   const handleOk = () => {
-    props.editProfileThunkCreator(form.getFieldsValue());
+    if (file != null) {
+      console.log("aa");
+      const formData = new FormData();
+      formData.append("file", file);
+      props.editProfileThunkCreator(form.getFieldsValue(), formData);
+    } else {
+      props.editProfileThunkCreator(form.getFieldsValue(), null);
+    }
+
     setIsModalOpen(false);
   };
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
+  const uploadProps = {
+    name: "file",
+    onChange(info) {
+      setFile(info.file.originFileObj);
+    },
+  };
+
   return (
     <>
       <Button icon={<EditOutlined />} onClick={showModal}>
@@ -48,15 +67,20 @@ const EditProfileForm = (props) => {
             <Col span={8}>
               <Avatar
                 size={{ xs: 140, sm: 140, md: 140, lg: 140, xl: 140, xxl: 300 }}
-                src="https://koshka.top/uploads/posts/2021-12/1638411940_1-koshka-top-p-kota-iz-shreka-s-grustnimi-1.jpg"
+                src={props.user.avatarBin}
               ></Avatar>
-              <Button style={{ marginTop: "2px" }} icon={<EditOutlined />}>
-                Change avatar
-              </Button>
+              <Upload {...uploadProps}>
+                <Button style={{ marginTop: "2px" }} icon={<EditOutlined />}>
+                  Change avatar
+                </Button>
+              </Upload>
             </Col>
             <Col span={16}>
               <FormItem label="Username" name="username">
-                <Input placeholder="username" defaultValue={props.user.user.username}></Input>
+                <Input
+                  placeholder="username"
+                  defaultValue={props.user.user.username}
+                ></Input>
               </FormItem>
               <Row style={{ display: "flex", justifyContent: "space-between" }}>
                 <Col span={12}>
@@ -66,7 +90,10 @@ const EditProfileForm = (props) => {
                     name="name"
                     style={{ marginRight: "5px" }}
                   >
-                    <Input placeholder="name" defaultValue={props.user.user.name}></Input>
+                    <Input
+                      placeholder="name"
+                      defaultValue={props.user.user.name}
+                    ></Input>
                   </FormItem>
                 </Col>
                 <Col span={12}>
@@ -76,7 +103,10 @@ const EditProfileForm = (props) => {
                     name="surname"
                     style={{ marginLeft: "5px" }}
                   >
-                    <Input placeholder="surname" defaultValue={props.user.user.surname}></Input>
+                    <Input
+                      placeholder="surname"
+                      defaultValue={props.user.user.surname}
+                    ></Input>
                   </FormItem>
                 </Col>
               </Row>
@@ -89,7 +119,10 @@ const EditProfileForm = (props) => {
                     name="city"
                     style={{ marginRight: "5px" }}
                   >
-                    <Input placeholder="city" defaultValue={props.user.user.city}></Input>
+                    <Input
+                      placeholder="city"
+                      defaultValue={props.user.user.city}
+                    ></Input>
                   </FormItem>
                 </Col>
                 <Col span={12}>
@@ -99,12 +132,18 @@ const EditProfileForm = (props) => {
                     name="country"
                     style={{ marginLeft: "5px" }}
                   >
-                    <Input placeholder="country" defaultValue={props.user.user.country}></Input>
+                    <Input
+                      placeholder="country"
+                      defaultValue={props.user.user.country}
+                    ></Input>
                   </FormItem>
                 </Col>
               </Row>
               <FormItem label="Bio" name="bio">
-                <Input.TextArea placeholder="bio" defaultValue={props.user.user.bio}></Input.TextArea>
+                <Input.TextArea
+                  placeholder="bio"
+                  defaultValue={props.user.user.bio}
+                ></Input.TextArea>
               </FormItem>
             </Col>
           </Row>

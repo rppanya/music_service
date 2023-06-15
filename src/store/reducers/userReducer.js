@@ -214,33 +214,79 @@ export function downloadAvatarAndHeaderThunkCreator(avatarId, headerId) {
   };
 }
 
-export function editProfileThunkCreator(data) {
+export function editProfileThunkCreator(data, avatarFile) {
   return (dispatch) => {
-    musicServiceApi.user.changeProfileInfo(data).then(() => {
-      musicServiceApi.user.getProfileInfo().then((data) => {
-        if (data.avatar) {
-          musicServiceApi.files.downloadFile(data.avatar).then((avatarBin) => {
-            if (data.headerImage) {
+    if (avatarFile) {
+      musicServiceApi.files.uploadFile(avatarFile).then((avatarId) => {
+        data["avatar"] = avatarId;
+        musicServiceApi.user.changeProfileInfo(data).then(() => {
+          musicServiceApi.user.getProfileInfo().then((data) => {
+            if (data.avatar) {
+              musicServiceApi.files
+                .downloadFile(data.avatar)
+                .then((avatarBin) => {
+                  if (data.headerImage) {
+                    musicServiceApi.files
+                      .downloadFile(data.headerImage)
+                      .then((headerImageBin) => {
+                        dispatch(
+                          getProfileInfoActionCreator(
+                            data,
+                            avatarBin,
+                            headerImageBin
+                          )
+                        );
+                      });
+                  }
+                });
+            } else if (data.headerImage) {
               musicServiceApi.files
                 .downloadFile(data.headerImage)
                 .then((headerImageBin) => {
                   dispatch(
-                    getProfileInfoActionCreator(data, avatarBin, headerImageBin)
+                    getProfileInfoActionCreator(data, null, headerImageBin)
                   );
                 });
+            } else {
+              dispatch(getProfileInfoActionCreator(data, null, null));
             }
           });
-        } else if (data.headerImage) {
-          musicServiceApi.files
-            .downloadFile(data.headerImage)
-            .then((headerImageBin) => {
-              dispatch(getProfileInfoActionCreator(data, null, headerImageBin));
-            });
-        } else {
-          dispatch(getProfileInfoActionCreator(data, null, null));
-        }
+        });
       });
-    });
+    } else
+      musicServiceApi.user.changeProfileInfo(data).then(() => {
+        musicServiceApi.user.getProfileInfo().then((data) => {
+          if (data.avatar) {
+            musicServiceApi.files
+              .downloadFile(data.avatar)
+              .then((avatarBin) => {
+                if (data.headerImage) {
+                  musicServiceApi.files
+                    .downloadFile(data.headerImage)
+                    .then((headerImageBin) => {
+                      dispatch(
+                        getProfileInfoActionCreator(
+                          data,
+                          avatarBin,
+                          headerImageBin
+                        )
+                      );
+                    });
+                }
+              });
+          } else if (data.headerImage) {
+            musicServiceApi.files
+              .downloadFile(data.headerImage)
+              .then((headerImageBin) => {
+                dispatch(
+                  getProfileInfoActionCreator(data, null, headerImageBin)
+                );
+              });
+          } else {
+            dispatch(getProfileInfoActionCreator(data, null, null));
+          }
+        });
+      });
   };
 }
 

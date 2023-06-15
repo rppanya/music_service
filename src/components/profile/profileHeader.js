@@ -1,11 +1,15 @@
-import { Avatar, Row, Col, Button, Modal, Input } from "antd";
-import { EditOutlined } from "@ant-design/icons";
-import { useState } from "react";
+import { Avatar, Row, Col, Button, Modal, Upload } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
+import { useEffect, useState } from "react";
+import { musicServiceApi } from "../../api/musicServiceApi";
 
 const ProfileHeader = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [file, setFile] = useState(null);
+  const [avatar, setAvatar] = useState(null);
+  const [headerImage, setHeaderImage] = useState(null);
 
+  console.log(props);
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -13,7 +17,7 @@ const ProfileHeader = (props) => {
   const handleOk = () => {
     const formData = new FormData();
     formData.append("file", file);
-
+    //props.downloadAvatarAndHeaderThunkCreator(props.avatar, props.headerImage);
     props.uploadHeaderImageThunkCreator(formData);
     setIsModalOpen(false);
   };
@@ -22,11 +26,33 @@ const ProfileHeader = (props) => {
     setIsModalOpen(false);
   };
 
+  const uploadProps = {
+    name: "file",
+    onChange(info) {
+      setFile(info.file.originFileObj);
+    },
+  };
+
+  useEffect(() => {
+    if (props.headerImage) {
+      musicServiceApi.files.downloadFile(props.headerImage).then((data) => {
+        setHeaderImage(data);
+      });
+    }
+    if (props.avatar) {
+      musicServiceApi.files.downloadFile(props.avatar).then((data) => {
+        setAvatar(data);
+      });
+    } else {
+      setAvatar(require("../../images/profile.png"));
+    }
+  });
+
   return (
     <div
       style={{
-        backgroundImage:
-          "url(https://koshka.top/uploads/posts/2021-12/1638411940_1-koshka-top-p-kota-iz-shreka-s-grustnimi-1.jpg)",
+        backgroundColor: "darkgrey",
+        backgroundImage: `url(${headerImage})`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         height: "max-content",
@@ -49,10 +75,12 @@ const ProfileHeader = (props) => {
               marginTop: "20px",
               marginBottom: "20px",
               boxShadow: "1px 1px 10px 1px rgba(0, 0, 0, .4)",
+              backgroundColor: "white",
             }}
-            src="https://koshka.top/uploads/posts/2021-12/1638411940_1-koshka-top-p-kota-iz-shreka-s-grustnimi-1.jpg"
+            src={avatar}
           />
         </Col>
+
         <Col span={15} style={{ marginLeft: "0" }}>
           <p
             style={{
@@ -111,11 +139,11 @@ const ProfileHeader = (props) => {
             onOk={handleOk}
             onCancel={handleCancel}
           >
-            <Input
-              type="file"
-              accept="image/*"
-              onInput={(e) => setFile(e.target.value)}
-            ></Input>
+            <Upload {...uploadProps}>
+              <Button icon={<UploadOutlined></UploadOutlined>}>
+                Загрузить
+              </Button>
+            </Upload>
           </Modal>
         </Col>
       </Row>

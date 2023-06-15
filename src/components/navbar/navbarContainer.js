@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { connect } from "react-redux";
 import {
@@ -12,7 +12,7 @@ function MiddleNavbarContainer(props) {
 }
 
 function mapStateToProps(state) {
-  return { user: state.user };
+  return { user: state.user.user, avatarBin: state.user.avatarBin };
 }
 
 const NavbarContainer = connect(mapStateToProps, {
