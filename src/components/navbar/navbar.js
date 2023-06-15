@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Button, Avatar, Menu, Input, Modal } from "antd";
+import { Button, Avatar, Menu, Input, Modal, Upload, Form } from "antd";
 import LoginFormContainer from "../auth/loginFormContainer";
 import RegistrationFormContainer from "../auth/registretionFormContainer";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = (props) => {
+  const { TextArea } = Input;
+
   const navigate = useNavigate();
   const token = localStorage.getItem("token")
     ? localStorage.getItem("token")
@@ -87,7 +89,6 @@ const Navbar = (props) => {
           }}
           src={props.avatarBin}
         />
-        {/* {props.user.username} */}
       </Button>
       <Button type="link">
         <img
@@ -166,11 +167,17 @@ const Navbar = (props) => {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <Input
-          type="file"
-          accept="audio/*"
-          onInput={(e) => setFile(e.target.value)}
-        ></Input>
+        <Form>
+          <Upload accept="audio/*" onInput={(e) => setFile(e.target.files[0])}>
+            <Button style={{ marginBottom: "20px" }}>Загрузить файл</Button>
+          </Upload>
+          <Form.Item label="Название" name="name">
+            <Input></Input>
+          </Form.Item>
+          <Form.Item label="Описание" name="description">
+            <TextArea></TextArea>
+          </Form.Item>
+        </Form>
       </Modal>
     </>
   );
