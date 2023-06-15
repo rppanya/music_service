@@ -65,20 +65,13 @@ const Details = (props) => {
           </p>
         </Col>
       </Row>
-      <ConfigProvider
-        theme={{
-          token: {
-            colorPrimary: "purple",
-          },
-        }}
-      >
-        <Tabs
-          style={{ marginLeft: "30px" }}
-          defaultActiveKey="1"
-          items={items}
-          //onChange={onChange}
-        ></Tabs>
-      </ConfigProvider>
+
+      <Tabs
+        style={{ marginLeft: "30px" }}
+        defaultActiveKey="1"
+        items={items}
+        //onChange={onChange}
+      ></Tabs>
     </div>
   );
 };

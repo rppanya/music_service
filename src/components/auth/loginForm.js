@@ -34,7 +34,7 @@ const LoginForm = (props) => {
 
   return (
     <>
-      <Button type="link" onClick={showModal}>
+      <Button type="link" style={{ color: "white" }} onClick={showModal}>
         Log in
       </Button>
       <Modal
