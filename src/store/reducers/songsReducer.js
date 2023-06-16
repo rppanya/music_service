@@ -96,11 +96,17 @@ export function songsSearchThunkCreator(searchString) {
   };
 }
 
-export function addSongThunkCreator(data, userId) {
+export function addSongThunkCreator(data, userId, song, cover) {
   return (dispatch) => {
-    musicServiceApi.song.addSongsInfo(data).then(() => {
-      musicServiceApi.song.getUploadedSongs(userId).then((data) => {
-        dispatch(getUploadedSongsActionCreator(data));
+    musicServiceApi.files.uploadFile(song).then((songId) => {
+      data["fileId"] = songId;
+      musicServiceApi.files.uploadFile(cover).then((coverId) => {
+        data["coverId"] = coverId;
+        musicServiceApi.song.addSongsInfo(data).then(() => {
+          musicServiceApi.song.getUploadedSongs(userId).then((data) => {
+            dispatch(getUploadedSongsActionCreator(data));
+          });
+        });
       });
     });
   };

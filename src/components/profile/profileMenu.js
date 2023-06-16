@@ -116,8 +116,9 @@ const ProfileMenu = (props) => {
             color: "darkgrey",
             fontSize: "15px",
           }}
-          onClick={()=> {navigate("/details")}}
-
+          onClick={() => {
+            navigate("/details");
+          }}
         >
           View all
         </Button>
@@ -158,7 +159,9 @@ const ProfileMenu = (props) => {
             color: "darkgrey",
             fontSize: "15px",
           }}
-          onClick={()=> {navigate("/details")}}
+          onClick={() => {
+            navigate("/details");
+          }}
         >
           View all
         </Button>
@@ -175,7 +178,11 @@ const ProfileMenu = (props) => {
       children: (
         <Row>
           <Col span={17} style={{ backgroundColor: "" }}>
-            <MyTracks></MyTracks>
+            <MyTracks
+              getUploadedSongsThunkCreator={props.getUploadedSongsThunkCreator}
+              songs={props.uploadedSongs}
+              userId={props.userId}
+            ></MyTracks>
           </Col>
           {detailsOwerview}
         </Row>
@@ -187,14 +194,13 @@ const ProfileMenu = (props) => {
   };
   return (
     <div style={{ marginLeft: "30px", marginRight: "30px" }}>
-      
-        <Tabs
-          tabBarExtraContent={OperationsSlot}
-          defaultActiveKey="1"
-          items={items}
-          onChange={onChange}
-          style={{ color: "black" }}
-        ></Tabs>
+      <Tabs
+        tabBarExtraContent={OperationsSlot}
+        defaultActiveKey="1"
+        items={items}
+        onChange={onChange}
+        style={{ color: "black" }}
+      ></Tabs>
     </div>
   );
 };

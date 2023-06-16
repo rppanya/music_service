@@ -22,6 +22,9 @@ const Profile = (props) => {
         followingCount={props.user.followingCount}
         uploadedSongsCount={props.user.uploadedSongsCount}
         likesCount={props.user.likesCount}
+        getUploadedSongsThunkCreator={props.getUploadedSongsThunkCreator}
+        uploadedSongs={props.uploadedSongs}
+        userId={props.user.id}
       />
     </div>
   );
