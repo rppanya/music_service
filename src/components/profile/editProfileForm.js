@@ -8,13 +8,11 @@ const EditProfileForm = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form] = Form.useForm();
   const [file, setFile] = useState(null);
-  const [avatar, setAvatar] = useState(null);
   const showModal = () => {
     setIsModalOpen(true);
   };
   const handleOk = () => {
     if (file != null) {
-      console.log("aa");
       const formData = new FormData();
       formData.append("file", file);
       props.editProfileThunkCreator(form.getFieldsValue(), formData);

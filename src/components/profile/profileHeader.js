@@ -139,7 +139,7 @@ const ProfileHeader = (props) => {
             onOk={handleOk}
             onCancel={handleCancel}
           >
-            <Upload {...uploadProps}>
+            <Upload {...uploadProps} accept="image/*">
               <Button icon={<UploadOutlined></UploadOutlined>}>
                 Загрузить
               </Button>
