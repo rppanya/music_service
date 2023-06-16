@@ -4,7 +4,7 @@ const url = "api/songs";
 function geetSongsInfo(id) {
   return instance.get(`${url}/${id}`, {
     headers: {
-      "Content-Type": "applicatin/json",
+      "Content-Type": "application/json",
     },
   });
 }
@@ -12,7 +12,7 @@ function geetSongsInfo(id) {
 function editSongsData(id, data) {
   return instance.put(`${url}/${id}`, data, {
     headers: {
-      "Content-Type": "applicatin/json",
+      "Content-Type": "application/json",
     },
   });
 }
@@ -24,7 +24,7 @@ function deleteSong(id) {
 function searchSongs(searchString) {
   return instance.post(`${url}/search`, searchString, {
     headers: {
-      "Content-Type": "applicatin/json",
+      "Content-Type": "application/json",
     },
   });
 }
@@ -32,7 +32,7 @@ function searchSongs(searchString) {
 function addSongsInfo(data) {
   return instance.post(`${url}/add`, data, {
     headers: {
-      "Content-Type": "applicatin/json",
+      "Content-Type": "application/json",
     },
   });
 }
