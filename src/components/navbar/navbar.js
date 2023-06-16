@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Button, Avatar, Menu, Input, Modal } from "antd";
+import { Button, Avatar, Menu, Input, Modal, Form } from "antd";
 import LoginFormContainer from "../auth/loginFormContainer";
 import RegistrationFormContainer from "../auth/registretionFormContainer";
 import { useNavigate } from "react-router-dom";
+import Upload from "antd/es/upload/Upload";
+import TextArea from "antd/es/input/TextArea";
+import FormItem from "antd/es/form/FormItem";
 
 const Navbar = (props) => {
   const navigate = useNavigate();
@@ -10,19 +13,30 @@ const Navbar = (props) => {
     ? localStorage.getItem("token")
     : null;
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [file, setFile] = useState(null);
+  const [song, setSong] = useState(null);
+  const [cover, setCover] = useState(null);
+  const [form] = Form.useForm();
 
   const logout = () => {
     props.logoutThunkCreator();
   };
 
   const showModal = () => {
-    console.log("show");
     setIsModalOpen(true);
   };
   const handleOk = () => {
-    const formData = new FormData();
-    formData.append("file", file);
+    const formDataSong = new FormData();
+    const formDataCover = new FormData();
+    formDataSong.append("file", song);
+    formDataCover.append("file", cover);
+
+    props.addSongThunkCreator(
+      form.getFieldsValue(),
+      props.user.user.id,
+      formDataSong,
+      formDataCover
+    );
+
     setIsModalOpen(false);
   };
   const handleCancel = () => {
@@ -87,7 +101,6 @@ const Navbar = (props) => {
           }}
           src={props.avatarBin}
         />
-        {/* {props.user.username} */}
       </Button>
       <Button type="link">
         <img
@@ -149,7 +162,7 @@ const Navbar = (props) => {
       setMenu(unauthorizeMenu);
       navigate("/");
     }
-  }, [props]);
+  }, [props, token]);
 
   useEffect(() => {
     if (token) {
@@ -166,11 +179,34 @@ const Navbar = (props) => {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <Input
-          type="file"
-          accept="audio/*"
-          onInput={(e) => setFile(e.target.value)}
-        ></Input>
+        <Form form={form}>
+          <Upload
+            type="file"
+            accept="audio/*"
+            onChange={(e) => {
+              console.log(e);
+              setSong(e.file.originFileObj);
+            }}
+          >
+            <Button style={{ marginBottom: "20px" }}>Загрузить песню</Button>
+          </Upload>
+          <Upload
+            type="file"
+            accept="image/*"
+            onChange={(e) => {
+              console.log(e);
+              setCover(e.file.originFileObj);
+            }}
+          >
+            <Button style={{ marginBottom: "20px" }}>Загрузить обложку</Button>
+          </Upload>
+          <FormItem label="Название" name="name">
+            <Input></Input>
+          </FormItem>
+          <FormItem label="Описание" name="description">
+            <TextArea></TextArea>
+          </FormItem>
+        </Form>
       </Modal>
     </>
   );
