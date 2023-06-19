@@ -5,10 +5,11 @@ import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import NavbarContainer from "./components/navbar/navbarContainer";
 import ProfileContainer from "./components/profile/profileContainer";
 import Details from "./components/details/detailsContainer";
-import Author from "./components/author/author";
+import AuthorContainer from "./components/author/authorContainer";
 import Search from "./components/search/search";
 import { ConfigProvider } from "antd";
 import SearchContainer from "./components/search/searchContainer";
+import DetailsPageContainer from "./components/details/detailsPageContainer";
 
 function App() {
   return (
@@ -25,7 +26,37 @@ function App() {
         </div>
 
         <Routes>
-          <Route path="/" element={<div>Wellcome</div>}></Route>
+          <Route
+            path="/"
+            element={
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  paddingTop: "50px",
+                }}
+              >
+                <img
+                  src={require("./images/icon2.png")}
+                  style={
+                    {
+                      //backgroundColor: "purple",
+                      //width: "80%",
+                    }
+                  }
+                ></img>
+                <img
+                  src={require("./images/icon1.png")}
+                  style={
+                    {
+                      //backgroundColor: "purple",
+                      //width: "80%",
+                    }
+                  }
+                ></img>
+              </div>
+            }
+          ></Route>
           <Route
             path="/profile"
             element={
@@ -43,7 +74,7 @@ function App() {
             }
           ></Route>
           <Route
-            path="/details"
+            path="/details/:userId"
             element={
               <div
                 style={{
@@ -52,11 +83,11 @@ function App() {
                   backgroundColor: "white",
                 }}
               >
-                <Details></Details>
+                <DetailsPageContainer></DetailsPageContainer>
               </div>
             }
           ></Route>
-          <Route
+          {/* <Route
             path="/author"
             element={
               <div>
@@ -71,7 +102,7 @@ function App() {
                 </div>
               </div>
             }
-          ></Route>
+          ></Route> */}
           <Route
             path="/search"
             element={
@@ -86,6 +117,22 @@ function App() {
                   }}
                 >
                   <SearchContainer></SearchContainer>
+                </div>
+              </div>
+            }
+          ></Route>
+          <Route
+            path="/:userId"
+            element={
+              <div>
+                <div
+                  style={{
+                    marginLeft: "8%",
+                    marginRight: "8%",
+                    backgroundColor: "white",
+                  }}
+                >
+                  <AuthorContainer isMyProfile={false}></AuthorContainer>
                 </div>
               </div>
             }

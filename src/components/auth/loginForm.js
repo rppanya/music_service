@@ -27,7 +27,7 @@ const LoginForm = (props) => {
   const navigate = useNavigate();
 
   const signIn = () => {
-    console.log({ email: email, password: password });
+    //console.log({ email: email, password: password });
     props.loginThunkCreator({ email: email, password: password });
     setIsModalOpen(false);
   };
@@ -46,7 +46,7 @@ const LoginForm = (props) => {
           style: { display: "none" },
         }}
       >
-        <h2 style={{ textAlign: "center" }}>Welcome back!</h2>
+        <h2 style={{ textAlign: "center" }}>Добро пожаловать!</h2>
 
         <Form
           layout="vertical"
@@ -54,7 +54,7 @@ const LoginForm = (props) => {
         >
           <FormItem>
             <Input
-              placeholder="Your email adress or profile url"
+              placeholder="Your email adress or username"
               onInput={(e) => {
                 setEmail(e.target.value);
               }}
@@ -70,7 +70,7 @@ const LoginForm = (props) => {
             }}
             onClick={() => setConfirmEmail(true)}
           >
-            Continue
+            Продолжить
           </Button>
         </Form>
 

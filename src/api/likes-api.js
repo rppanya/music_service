@@ -14,7 +14,7 @@ function addLike(songId) {
 }
 
 function getLikedSongs(userId) {
-    return instance.get(`${url}/likes/${userId}`)
+    return instance.get(`${url}/${userId}`)
 }
 
 function deleteLike(songId) {

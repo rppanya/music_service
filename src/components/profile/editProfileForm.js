@@ -36,7 +36,7 @@ const EditProfileForm = (props) => {
   return (
     <>
       <Button icon={<EditOutlined />} onClick={showModal}>
-        Edit
+        Редактировать
       </Button>
       <Modal
         open={isModalOpen}
@@ -47,7 +47,8 @@ const EditProfileForm = (props) => {
           disabled: false,
           style: { backgroundColor: "purple" },
         }}
-        okText="Save changes"
+        okText="Сохранить изменения"
+        cancelText="Отмена"
       >
         <h2
           style={{
@@ -57,19 +58,19 @@ const EditProfileForm = (props) => {
             paddingBottom: "3px",
           }}
         >
-          Edit your Profile
+          Редактировать профиль
         </h2>
 
         <Form layout="vertical" form={form}>
           <Row>
             <Col span={8}>
               <Avatar
-                size={{ xs: 140, sm: 140, md: 140, lg: 140, xl: 140, xxl: 300 }}
+                size={{ xs: 140, sm: 140, md: 140, lg: 140, xl: 140, xxl: 140 }}
                 src={props.user.avatarBin}
               ></Avatar>
               <Upload {...uploadProps}>
                 <Button style={{ marginTop: "2px" }} icon={<EditOutlined />}>
-                  Change avatar
+                  Выбрать аватар
                 </Button>
               </Upload>
             </Col>
@@ -78,32 +79,35 @@ const EditProfileForm = (props) => {
                 <Input
                   placeholder="username"
                   defaultValue={props.user.user.username}
+                  initialValue={props.user.user.username}
                 ></Input>
               </FormItem>
               <Row style={{ display: "flex", justifyContent: "space-between" }}>
                 <Col span={12}>
                   <FormItem
                     layout="inline"
-                    label="First name"
+                    label="Имя"
                     name="name"
                     style={{ marginRight: "5px" }}
                   >
                     <Input
                       placeholder="name"
                       defaultValue={props.user.user.name}
+                      initialValue={props.user.user.name}
                     ></Input>
                   </FormItem>
                 </Col>
                 <Col span={12}>
                   <FormItem
                     layout="inline"
-                    label="Last name"
+                    label="Фамилия"
                     name="surname"
                     style={{ marginLeft: "5px" }}
                   >
                     <Input
                       placeholder="surname"
                       defaultValue={props.user.user.surname}
+                      initialValue={props.user.user.surname}
                     ></Input>
                   </FormItem>
                 </Col>
@@ -113,34 +117,40 @@ const EditProfileForm = (props) => {
                 <Col span={12}>
                   <FormItem
                     layout="inline"
-                    label="City"
+                    label="Город"
                     name="city"
                     style={{ marginRight: "5px" }}
                   >
                     <Input
                       placeholder="city"
                       defaultValue={props.user.user.city}
+                      initialValue={props.user.user.city}
+
                     ></Input>
                   </FormItem>
                 </Col>
                 <Col span={12}>
                   <FormItem
                     layout="inline"
-                    label="Country"
+                    label="Страна"
                     name="country"
                     style={{ marginLeft: "5px" }}
                   >
                     <Input
                       placeholder="country"
                       defaultValue={props.user.user.country}
+                      initialValue={props.user.user.country}
+
                     ></Input>
                   </FormItem>
                 </Col>
               </Row>
               <FormItem label="Bio" name="bio">
                 <Input.TextArea
-                  placeholder="bio"
+                  placeholder="Описание профиля"
                   defaultValue={props.user.user.bio}
+                  штшешфдValue={props.user.user.bio}
+
                 ></Input.TextArea>
               </FormItem>
             </Col>

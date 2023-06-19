@@ -99,7 +99,7 @@ const Navbar = (props) => {
             margin: "0",
             boxShadow: "1px 1px 10px 1px rgba(0, 0, 0, .4)",
           }}
-          src={props.avatarBin}
+          src={props.avatarBin ? props.avatarBin : require("../../images/profile.png")}
         />
       </Button>
       <Button type="link">
@@ -163,6 +163,7 @@ const Navbar = (props) => {
       navigate("/");
     }
   }, [props, token]);
+  console.log(props)
 
   useEffect(() => {
     if (token) {
@@ -184,7 +185,7 @@ const Navbar = (props) => {
             type="file"
             accept="audio/*"
             onChange={(e) => {
-              console.log(e);
+              //console.log(e);
               setSong(e.file.originFileObj);
             }}
           >
@@ -194,7 +195,7 @@ const Navbar = (props) => {
             type="file"
             accept="image/*"
             onChange={(e) => {
-              console.log(e);
+              //console.log(e);
               setCover(e.file.originFileObj);
             }}
           >

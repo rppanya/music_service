@@ -37,7 +37,7 @@ const RegistrationForm = (props) => {
           style: { display: "none" },
         }}
       >
-        <h2 style={{ textAlign: "center" }}>Create your account</h2>
+        <h2 style={{ textAlign: "center" }}>Создать новый аккаунт</h2>
 
         <Form
           layout="vertical"
@@ -45,7 +45,7 @@ const RegistrationForm = (props) => {
         >
           <FormItem>
             <Input
-              placeholder="Your email adress or profile url"
+              placeholder="Your email adress"
               onInput={(e) => setEmail(e.target.value)}
             ></Input>
           </FormItem>
@@ -59,7 +59,7 @@ const RegistrationForm = (props) => {
             }}
             onClick={() => setConfirmEmail(true)}
           >
-            Continue
+            Продолжить
           </Button>
         </Form>
 
@@ -83,28 +83,28 @@ const RegistrationForm = (props) => {
             {email}
           </Button>
 
-          <FormItem label="Usernsme" name="username">
+          <FormItem label="Username" name="username">
             <Input placeholder="username"></Input>
           </FormItem>
 
-          <Form.Item name="age" label="Age">
+          <Form.Item name="age" label="Возраст">
             <Input type="number" />
           </Form.Item>
-          <Form.Item name="gender" label="Gender">
+          <Form.Item name="gender" label="Пол">
             <Select
-              placeholder="Select a option and change input text above"
+              // placeholder="Select a option and change input text above"
               allowClear
             >
-              <Option value="MALE">male</Option>
-              <Option value="FEMALE">female</Option>
+              <Option value="MALE">Мужской</Option>
+              <Option value="FEMALE">Женский</Option>
               {/* <Option value="other">other</Option> */}
             </Select>
           </Form.Item>
 
-          <FormItem label="Password" name="password">
+          <FormItem label="Пароль" name="password">
             <Input.Password placeholder="password"></Input.Password>
           </FormItem>
-          <FormItem label="Confirm password" name="confirmPassword">
+          <FormItem label="Подтверждение пароля" name="confirmPassword">
             <Input.Password placeholder="password"></Input.Password>
           </FormItem>
           <Button
@@ -118,12 +118,12 @@ const RegistrationForm = (props) => {
             onClick={() => {
               const data = form.getFieldsValue();
               data.email = email;
-              console.log(data);
+              //console.log(data);
               props.registrationThunkCreator(data);
               setIsModalOpen(false);
             }}
           >
-            Sign up
+            Зарегистрироваться
           </Button>
         </Form>
       </Modal>
