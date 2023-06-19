@@ -1,29 +1,44 @@
+import { useEffect } from "react";
 import MyTracks from "../profile/myTracks";
+import MyTracksContainer from "../profile/myTracksContainer";
 import UsersContainer from "./usersContainer";
+import LikesContainer from "./likesContainer";
+import FollowersContainer from "./followersContainer";
+import FollowingContainer from "./followingContainer";
 
 const { Row, Col, Avatar, ConfigProvider, Tabs } = require("antd");
 
 const Details = (props) => {
+  console.log(props);
+  // useEffect(() => {
+  //   if (props.avatar) {
+  //     musicServiceApi.files.downloadFile(props.avatar).then((data) => {
+  //       setAvatar(data);
+  //     });
+  //   } else {
+  //     setAvatar(require("../../images/profile.png"));
+  //   }
+  // })
   const items = [
     {
       key: "1",
-      label: <b style={{ fontSize: "17px" }}>My tracks</b>,
-      children: <MyTracks></MyTracks>,
+      label: <b style={{ fontSize: "17px" }}>Загруженные треки</b>,
+      children: <MyTracksContainer userId={props.user.id}></MyTracksContainer>,
     },
     {
       key: "2",
-      label: <b style={{ fontSize: "17px" }}>Likes</b>,
-      children: <MyTracks></MyTracks>,
+      label: <b style={{ fontSize: "17px" }}>Лайки</b>,
+      children: <LikesContainer userId={props.user.id}></LikesContainer>,
     },
     {
       key: "3",
-      label: <b style={{ fontSize: "17px" }}>Following</b>,
-      children: <UsersContainer></UsersContainer>,
+      label: <b style={{ fontSize: "17px" }}>Подписки</b>,
+      children: <FollowingContainer userId={props.user.is}></FollowingContainer>,
     },
     {
       key: "4",
-      label: <b style={{ fontSize: "17px" }}>Followers</b>,
-      children: <UsersContainer></UsersContainer>,
+      label: <b style={{ fontSize: "17px" }}>Подписчики</b>,
+      children: <FollowersContainer userId={props.user.is}></FollowersContainer>,
     },
   ];
   return (
@@ -50,7 +65,11 @@ const Details = (props) => {
               marginTop: "10px",
               boxShadow: "1px 1px 10px 1px rgba(0, 0, 0, .1)",
             }}
-            src="https://koshka.top/uploads/posts/2021-12/1638411940_1-koshka-top-p-kota-iz-shreka-s-grustnimi-1.jpg"
+            src={
+              props.avatarBin
+                ? props.avatarBin
+                : require("../../images/profile.png")
+            }
           />
         </Col>
         <Col span={2} style={{ marginLeft: "0", lineHeight: "100px" }}>
@@ -61,7 +80,7 @@ const Details = (props) => {
               fontSize: "30px",
             }}
           >
-            Likes by anna
+            {props.user.username}
           </p>
         </Col>
       </Row>

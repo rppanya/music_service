@@ -33,26 +33,11 @@ const ProfileHeader = (props) => {
     },
   };
 
-  useEffect(() => {
-    if (props.headerImage) {
-      musicServiceApi.files.downloadFile(props.headerImage).then((data) => {
-        setHeaderImage(data);
-      });
-    }
-    if (props.avatar) {
-      musicServiceApi.files.downloadFile(props.avatar).then((data) => {
-        setAvatar(data);
-      });
-    } else {
-      setAvatar(require("../../images/profile.png"));
-    }
-  });
-
   return (
     <div
       style={{
         backgroundColor: "darkgrey",
-        backgroundImage: `url(${headerImage})`,
+        backgroundImage: `url(${props.headerImageBin})`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         height: "max-content",
@@ -69,7 +54,7 @@ const ProfileHeader = (props) => {
               md: 200,
               lg: 280,
               xl: 250,
-              xxl: 100,
+              xxl: 250,
             }}
             style={{
               marginTop: "20px",
@@ -77,7 +62,11 @@ const ProfileHeader = (props) => {
               boxShadow: "1px 1px 10px 1px rgba(0, 0, 0, .4)",
               backgroundColor: "white",
             }}
-            src={avatar}
+            src={
+              props.avatarBin
+                ? props.avatarBin
+                : require("../../images/profile.png")
+            }
           />
         </Col>
 
@@ -94,7 +83,19 @@ const ProfileHeader = (props) => {
               padding: "6px",
             }}
           >
-            {props.name}
+            {props.username}
+          </p>
+          <p
+            style={{
+              backgroundColor: "rgba(0, 0, 0, .7)",
+              color: "lightgrey",
+              width: "max-content",
+              fontSize: "19px",
+              marginTop: "1px",
+              marginLeft: "20px",
+            }}
+          >
+            {props.name && props.surname ? `${props.name} ${props.surname}` : null}
           </p>
           <p
             style={{
@@ -104,12 +105,9 @@ const ProfileHeader = (props) => {
               fontSize: "15px",
               marginTop: "1px",
               marginLeft: "20px",
-              padding: "5px",
             }}
           >
-            {props.city && props.country
-              ? `${props.city}, ${props.country}`
-              : "City, Country"}
+            {props.city && props.country ? `${props.city}, ${props.country}` : null}
           </p>
         </Col>
         <Col
@@ -124,6 +122,7 @@ const ProfileHeader = (props) => {
             style={{
               color: "white",
               marginTop: "4px",
+              display: props.isMyProfile ? "block" : "none"
             }}
             type="link"
             onClick={showModal}

@@ -5,10 +5,13 @@ import Follower from "./followerInMenu";
 import EditProfileFormContainer from "./editProfileFormContainer";
 import MyTracks from "./myTracks";
 import { useNavigate } from "react-router-dom";
+import MyTracksContainer from "./myTracksContainer";
+import FollowButton from "./followButton";
+import FollowButtonContainer from "./followButtonContainer";
 
 const ProfileMenu = (props) => {
   const onChange = (key) => {
-    console.log(key);
+    //console.log(key);
   };
   const navigate = useNavigate();
   const detailsOwerview = (
@@ -24,7 +27,7 @@ const ProfileMenu = (props) => {
               paddingLeft: "8px",
             }}
           >
-            Followers
+            Подписчики
           </p>
           <p
             style={{
@@ -48,7 +51,7 @@ const ProfileMenu = (props) => {
               paddingLeft: "8px",
             }}
           >
-            Following
+            Подписки
           </p>
           <p
             style={{
@@ -72,7 +75,7 @@ const ProfileMenu = (props) => {
               paddingLeft: "8px",
             }}
           >
-            Tracks
+            Моя музыка
           </p>
           <p
             style={{
@@ -86,6 +89,9 @@ const ProfileMenu = (props) => {
             {props.uploadedSongsCount}
           </p>
         </Col>
+      </Row>
+      <Row>
+        <p style={{ marginLeft: "20px" }}>{props.userBio}</p>
       </Row>
       <Row
         style={{
@@ -117,15 +123,15 @@ const ProfileMenu = (props) => {
             fontSize: "15px",
           }}
           onClick={() => {
-            navigate("/details");
+            navigate(`/details/${props.userId}`);
           }}
         >
-          View all
+          Смотреть все
         </Button>
       </Row>
-      <Track></Track>
-      <Track></Track>
-      <Track></Track>
+      {/* <div style={{marginLeft: "10px"}}>
+        <MyTracksContainer userId={props.userId}></MyTracksContainer>
+      </div> */}
 
       <Row
         style={{
@@ -150,7 +156,7 @@ const ProfileMenu = (props) => {
           src={require("../../images/people.png")}
           alt="ss"
         />
-        <p>{props.followingCount} following</p>
+        <p>{props.followingCount} подписок</p>
         <Button
           type="text"
           style={{
@@ -160,29 +166,25 @@ const ProfileMenu = (props) => {
             fontSize: "15px",
           }}
           onClick={() => {
-            navigate("/details");
+            navigate(`/details/${props.userId}`);
           }}
         >
-          View all
+          Смотреть все
         </Button>
       </Row>
+      {/* <Follower></Follower>
       <Follower></Follower>
-      <Follower></Follower>
-      <Follower></Follower>
+      <Follower></Follower> */}
     </Col>
   );
   const items = [
     {
       key: "1",
-      label: <b style={{ fontSize: "17px" }}>My tracks</b>,
+      label: <b style={{ fontSize: "17px" }}>Моя музыка</b>,
       children: (
         <Row>
           <Col span={17} style={{ backgroundColor: "" }}>
-            <MyTracks
-              getUploadedSongsThunkCreator={props.getUploadedSongsThunkCreator}
-              songs={props.uploadedSongs}
-              userId={props.userId}
-            ></MyTracks>
+            <MyTracksContainer userId={props.userId}></MyTracksContainer>
           </Col>
           {detailsOwerview}
         </Row>
@@ -190,7 +192,11 @@ const ProfileMenu = (props) => {
     },
   ];
   const OperationsSlot = {
-    right: <EditProfileFormContainer></EditProfileFormContainer>,
+    right: props.isMyProfile ? (
+      <EditProfileFormContainer></EditProfileFormContainer>
+    ) : (
+      <FollowButtonContainer userId={props.userId} following={props.following}></FollowButtonContainer>
+    ),
   };
   return (
     <div style={{ marginLeft: "30px", marginRight: "30px" }}>

@@ -6,7 +6,6 @@ import {
   uploadHeaderImageThunkCreator,
   downloadAvatarAndHeaderThunkCreator,
 } from "../../store/reducers/userReducer";
-import { getUploadedSongsThunkCreator } from "../../store/reducers/songsReducer";
 import Profile from "./profile";
 
 function MiddleProfileContainer(props) {
@@ -18,10 +17,9 @@ function MiddleProfileContainer(props) {
 
 function mapStateToProps(state) {
   return {
-    user: state.user.user,
-    avatarBin: state.avatarBin,
-    headerImageBin: state.headerImageBin,
-    uploadedSongs: state.songs.uploadedSongs,
+    user: state.user,
+    avatarBin: state.user.avatarBin,
+    headerImageBin: state.user.headerImageBin,
   };
 }
 
@@ -29,7 +27,6 @@ const ProfileContainer = connect(mapStateToProps, {
   getProfileInfoThunkCreator,
   uploadHeaderImageThunkCreator,
   downloadAvatarAndHeaderThunkCreator,
-  getUploadedSongsThunkCreator,
 })(MiddleProfileContainer);
 
 export default ProfileContainer;

@@ -5,26 +5,32 @@ const Profile = (props) => {
   return (
     <div>
       <ProfileHeader
-        name={props.user.username}
-        city={props.user.city}
-        country={props.user.country}
-        avatar={props.user.avatar}
+        username={props.user.user.username}
+        name={props.user.user.name}
+        surname={props.user.user.surname}
+        city={props.user.user.city}
+        country={props.user.user.country}
+        avatar={props.user.user.avatar}
         avatarBin={props.avatarBin}
-        headerImage={props.user.headerImage}
+        headerImage={props.user.user.headerImage}
         headerImageBin={props.headerImageBin}
         uploadHeaderImageThunkCreator={props.uploadHeaderImageThunkCreator}
         downloadAvatarAndHeaderThunkCreator={
           props.downloadAvatarAndHeaderThunkCreator
         }
+        isMyProfile={true}
       />
       <ProfileMenu
-        followersCount={props.user.followersCount}
-        followingCount={props.user.followingCount}
-        uploadedSongsCount={props.user.uploadedSongsCount}
-        likesCount={props.user.likesCount}
+        followersCount={props.user.user.followersCount}
+        followingCount={props.user.user.followingCount}
+        uploadedSongsCount={props.user.user.uploadedSongsCount}
+        likesCount={props.user.user.likesCount}
         getUploadedSongsThunkCreator={props.getUploadedSongsThunkCreator}
         uploadedSongs={props.uploadedSongs}
-        userId={props.user.id}
+        userId={props.user.user.id}
+        userBio={props.user.user.bio}
+        following={props.user.user.following}
+        isMyProfile={true}
       />
     </div>
   );
