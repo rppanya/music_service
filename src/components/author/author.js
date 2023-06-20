@@ -25,7 +25,8 @@ const Author = (props) => {
         uploadedSongs={props.uploadedSongs}
         userId={props.user.anotherUser.id}
         userBio={props.user.anotherUser.bio}
-        isMyProfile={false}
+        following={props.user.anotherUser.following}
+        isMyProfile={props.user.user.id === props.user.anotherUser.id}
       />
     </div>
   );

@@ -13,6 +13,7 @@ const ProfileMenu = (props) => {
   const onChange = (key) => {
     //console.log(key);
   };
+  console.log(props)
   const navigate = useNavigate();
   const detailsOwerview = (
     <Col span={7} style={{ borderLeft: "1px solid #F0F0F0" }}>

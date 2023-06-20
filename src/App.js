@@ -10,6 +10,7 @@ import Search from "./components/search/search";
 import { ConfigProvider } from "antd";
 import SearchContainer from "./components/search/searchContainer";
 import DetailsPageContainer from "./components/details/detailsPageContainer";
+import { Footer } from "antd/es/layout/layout";
 
 function App() {
   return (
@@ -138,6 +139,7 @@ function App() {
             }
           ></Route>
         </Routes>
+        <Footer style={{position: "absolute", bottom: "0", width: "100%", height: "30px", backgroundColor: "white"}}></Footer>
       </ConfigProvider>
     </div>
   );

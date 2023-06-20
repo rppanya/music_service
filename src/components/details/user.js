@@ -19,6 +19,8 @@ const User = (props) => {
             src={
               props.userInfo.avatar
                 ? props.userInfo.avatar
+                : props.userInfo.avatarFile
+                ? props.userInfo.avatarFile 
                 : require("../../images/profile.png")
             }
           ></img>

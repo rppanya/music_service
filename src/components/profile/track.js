@@ -7,10 +7,12 @@ import {
 } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import { Howl, Howler } from "howler";
+import { useNavigate } from "react-router-dom";
 
 const Track = (props) => {
+  const navigate = useNavigate();
   const [play, setPlay] = useState(false);
-  console.log(props)
+  console.log(props);
 
   const playSong = () => {
     setPlay(!play);
@@ -30,7 +32,7 @@ const Track = (props) => {
 
   return (
     <Card
-      style={{ border: "0", marginTop: "5px" }}
+      style={{ border: "0", marginTop: "5px", cursor: "default" }}
       bodyStyle={{ margin: "0", padding: "0", border: "0" }}
       hoverable
     >
@@ -50,7 +52,6 @@ const Track = (props) => {
             height={50}
             src={props.song.cover}
             preview={false}
-            
           />
         </Col>
         <Col
@@ -73,7 +74,17 @@ const Track = (props) => {
             textAlign: "start",
           }}
         >
-          {props.song.authorUsername}
+          <Button
+            type="link"
+            style={{ color: "purple" }}
+            onClick={(e) => { 
+              e.preventDefault();
+              e.stopPropagation();
+              navigate(`/${props.song.authorId}`);
+            }}
+          >
+            {props.song.authorUsername}
+          </Button>
         </Col>
         <Col span={3} style={{ paddingRight: "10px" }}>
           <HeartFilled
@@ -111,7 +122,9 @@ const Track = (props) => {
               color: "darkGrey",
               fontSize: "17px",
             }}
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
               deleteSong();
             }}
           />
@@ -133,8 +146,8 @@ const Track = (props) => {
             //zIndex: "-1"
           }}
           onClick={() => {
-              playSong();
-            }}
+            playSong();
+          }}
           type="link"
         ></Button>
       </Row>

@@ -8,8 +8,14 @@ import {
   followThunkCreator,
   unfollowThunkCreator,
 } from "../../store/reducers/followReducer";
+import { getProfileInfoIdThunkCreator } from "../../store/reducers/userReducer";
 
 function MiddleFollowButtonContainer(props) {
+  console.log(props);
+  // useEffect(() => {
+  //   props.getProfileInfoIdThunkCreator(props.userId);
+  // }, []);
+  //useEffect(() => {}, [props.follow]);
   return <FollowButton {...props} />;
 }
 
@@ -18,12 +24,15 @@ function mapStateToProps(state) {
     songs: state.songs.uploadedSongs,
     currentPlaying: state.songs.currentPlaying,
     following: state.user.anotherUser.following,
+    follow: state.follow,
+
   };
 }
 
 const FollowButtonContainer = connect(mapStateToProps, {
   followThunkCreator,
   unfollowThunkCreator,
+  getProfileInfoIdThunkCreator,
 })(MiddleFollowButtonContainer);
 
 export default FollowButtonContainer;

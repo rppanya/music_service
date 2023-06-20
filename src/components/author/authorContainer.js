@@ -7,6 +7,7 @@ import Author from "./author";
 import { getProfileInfoIdThunkCreator } from "../../store/reducers/userReducer";
 
 function MiddleAuthorContainer(props) {
+  console.log(props)
   const userId = window.location.pathname.split("/").pop();
   useEffect(() => {
     props.getProfileInfoIdThunkCreator(userId);
@@ -16,7 +17,8 @@ function MiddleAuthorContainer(props) {
 
 function mapStateToProps(state) {
   return {
-    user: state.user
+    user: state.user,
+    follow: state.follow
   };
 }
 

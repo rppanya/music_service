@@ -7,6 +7,7 @@ import UsersContainer from "./usersContainer";
 import { getFollowingThunkCreator } from "../../store/reducers/followReducer";
 
 function MiddleFollowingContainer(props) {
+  console.log(props)
   useEffect(() => {
     props.getFollowingThunkCreator(props.userId);
   }, []);
@@ -15,7 +16,7 @@ function MiddleFollowingContainer(props) {
 
 function mapStateToProps(state) {
   return {
-    users: state.follow.subscribers,
+    users: state.follow.following,
   };
 }
 

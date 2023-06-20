@@ -1,5 +1,8 @@
 import { musicServiceApi } from "../../api/musicServiceApi";
-import { getProfileInfoIDActionCreator, getProfileInfoIdThunkCreator } from "./userReducer";
+import {
+  getProfileInfoIDActionCreator,
+  getProfileInfoIdThunkCreator,
+} from "./userReducer";
 const GET_FOLLOWING = "GET_FOLLOWING";
 const GET_SUBSCRIBERS = "GET_SUBSCRIBERS";
 
@@ -32,27 +35,46 @@ function getSubscribersActionCreator(subscribers) {
 }
 
 export function getFollowingThunkCreator(userId) {
+  console.log("following" + userId);
   return (dispatch) => {
     musicServiceApi.following.getFollowing(userId).then((data) => {
-      if (data.avatarId) {
-        musicServiceApi.files.downloadFile(data.avatarId).then((avatar) => {
-          data.avatar = avatar;
-          dispatch(getFollowingActionCreator(data));
-        });
-      } else dispatch(getFollowingActionCreator(data));
+      for (let i = 0; i < data.length; i++) {
+        const user = data[i];
+        if (data[i].avatarId) {
+          musicServiceApi.files
+            .downloadFile(data[i].avatarId)
+            .then((avatar) => {
+              data[i].avatar = avatar;
+              dispatch(getFollowingActionCreator(data));
+            });
+        } else dispatch(getFollowingActionCreator(data));
+      }
+      // if (data.avatarId) {
+      //   musicServiceApi.files.downloadFile(data.avatarId).then((avatar) => {
+      //     data.avatar = avatar;
+      //     dispatch(getFollowingActionCreator(data));
+      //   });
+      // } else dispatch(getFollowingActionCreator(data));
     });
   };
 }
 
 export function getSubscribersThunkCreator(userId) {
+  console.log("subscribers" + userId);
+
   return (dispatch) => {
     musicServiceApi.subscribers.getSubscribers(userId).then((data) => {
-      if (data.avatarId) {
-        musicServiceApi.files.downloadFile(data.avatarId).then((avatar) => {
-          data.avatar = avatar;
-          dispatch(getSubscribersActionCreator(data));
-        });
-      } else dispatch(getSubscribersActionCreator(data));
+      for (let i = 0; i < data.length; i++) {
+        const user = data[i];
+        if (data[i].avatarId) {
+          musicServiceApi.files
+            .downloadFile(data[i].avatarId)
+            .then((avatar) => {
+              data[i].avatar = avatar;
+              dispatch(getSubscribersActionCreator(data));
+            });
+        } else dispatch(getSubscribersActionCreator(data));
+      }
     });
   };
 }
@@ -110,10 +132,10 @@ export function unfollowThunkCreator(userId) {
                 });
             } else dispatch(getFollowingActionCreator(data));
           })
-        )
-        // .then(
-        //   getProfileInfoIdThunkCreator(userId)
-        // )
+        );
+      // .then(
+      //   getProfileInfoIdThunkCreator(userId)
+      // )
     });
   };
 }

@@ -3,8 +3,6 @@ import { connect } from "react-redux";
 
 const { List } = require("antd");
 
-
-
 const Users = (props) => {
   const data = props.users;
   return (
@@ -21,7 +19,7 @@ const Users = (props) => {
         }}
         dataSource={data}
         renderItem={(element) => (
-          <List.Item >
+          <List.Item>
             <User userInfo={element}></User>
           </List.Item>
         )}
@@ -32,7 +30,7 @@ const Users = (props) => {
 
 function mapStateToProps(state) {
   return {
-    usersS: state.user
+    follow: state.follow 
   }
 }
 

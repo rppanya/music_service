@@ -19,6 +19,7 @@ const Details = (props) => {
   //     setAvatar(require("../../images/profile.png"));
   //   }
   // })
+  console.log(props)
   const items = [
     {
       key: "1",
@@ -33,12 +34,12 @@ const Details = (props) => {
     {
       key: "3",
       label: <b style={{ fontSize: "17px" }}>Подписки</b>,
-      children: <FollowingContainer userId={props.user.is}></FollowingContainer>,
+      children: <FollowingContainer userId={props.user.id}></FollowingContainer>,
     },
     {
       key: "4",
       label: <b style={{ fontSize: "17px" }}>Подписчики</b>,
-      children: <FollowersContainer userId={props.user.is}></FollowersContainer>,
+      children: <FollowersContainer userId={props.user.id}></FollowersContainer>,
     },
   ];
   return (
@@ -66,8 +67,8 @@ const Details = (props) => {
               boxShadow: "1px 1px 10px 1px rgba(0, 0, 0, .1)",
             }}
             src={
-              props.avatarBin
-                ? props.avatarBin
+              props.user.avatarFile
+                ? props.user.avatarFile
                 : require("../../images/profile.png")
             }
           />
