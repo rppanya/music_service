@@ -2,7 +2,7 @@ import instance from "./baseUrl";
 const url = "api/notifications";
 
 function getNotifications() {
-  return instance.get(`${url}/get`, {
+  return instance.post(`${url}/get`, {
     headers: {
       "Content-Type": "applicatin/json",
     },

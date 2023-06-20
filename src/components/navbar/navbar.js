@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import Upload from "antd/es/upload/Upload";
 import TextArea from "antd/es/input/TextArea";
 import FormItem from "antd/es/form/FormItem";
+import Notifications from "../notifications/notifications";
+import NotificationsContainer from "../notifications/notificationsContiner";
 
 const Navbar = (props) => {
   const navigate = useNavigate();
@@ -102,12 +104,13 @@ const Navbar = (props) => {
           src={props.avatarBin ? props.avatarBin : require("../../images/profile.png")}
         />
       </Button>
-      <Button type="link">
+      {/* <Button type="link">
         <img
           src={require("../../images/bell-ring.png")}
           style={{ height: "26px" }}
         ></img>
-      </Button>
+      </Button> */}
+      <NotificationsContainer></NotificationsContainer>
       <Button
         type="link"
         onClick={() => logout()}
