@@ -7,6 +7,7 @@ const GET_LIKED_SONGS = "GET_LIKED_SONGS";
 const GET_COVER = "GET_COVER";
 const GET_AUDIO = "GET_AUDIO";
 const CHANGE_LIKE = "CHANGE_LIKE";
+const SET_CURRENT_PLAYING = "SET_CURRENT_PLAYING ";
 
 const initialState = {
   songsInfo: {
@@ -117,13 +118,16 @@ const songsReducer = (state = initialState, action) => {
         if (song.id === action.songId) {
           newState.uploadedSongs[i].file = action.file;
           if (action.play) {
-            newState.currentPlaying = action.file;
+            newState.currentPlaying = newState.uploadedSongs[i];
           }
           console.log(newState.currentPlaying, action.file, action.play);
           return newState;
         }
       }
 
+      return newState;
+    case SET_CURRENT_PLAYING:
+      newState.currentPlaying = action.song;
       return newState;
     default:
       return newState;
@@ -278,7 +282,7 @@ export function getLikedSongsThunkCreator(userId) {
 export function addLikeThunkCreator(songId, userId) {
   return (dispatch) => {
     musicServiceApi.likes.addLike(songId).then((likesCount) => {
-      console.log(likesCount)
+      console.log(likesCount);
       dispatch(changeLikeActionCreator(songId, true, likesCount));
       musicServiceApi.likes.getLikedSongs(userId).then((data) => {
         for (let i = 0; i < data.length; i++) {
@@ -308,5 +312,13 @@ export function deleteLikeThunkCreator(songId, userId) {
       });
     });
   };
+}
+
+function setCurrentPlayingActionCreator(song) {
+  return { type: SET_CURRENT_PLAYING, song: song };
+}
+
+export function setCurrentPlaying(song) {
+  return (dispatch) => dispatch(setCurrentPlayingActionCreator(song));
 }
 export default songsReducer;

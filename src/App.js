@@ -11,6 +11,8 @@ import { ConfigProvider } from "antd";
 import SearchContainer from "./components/search/searchContainer";
 import DetailsPageContainer from "./components/details/detailsPageContainer";
 import { Footer } from "antd/es/layout/layout";
+import Player from "./components/player/player";
+import PlayerContainer from "./components/player/playerContainer";
 
 function App() {
   return (
@@ -139,7 +141,19 @@ function App() {
             }
           ></Route>
         </Routes>
-        <Footer style={{position: "absolute", bottom: "0", width: "100%", height: "30px", backgroundColor: "white"}}></Footer>
+        <Footer
+          style={{
+            position: "absolute",
+            bottom: "0",
+            width: "100%",
+            height: "auto",
+            backgroundColor: "white",
+            margin: "0",
+            padding: "0",
+          }}
+        >
+          <PlayerContainer></PlayerContainer>
+        </Footer>
       </ConfigProvider>
     </div>
   );

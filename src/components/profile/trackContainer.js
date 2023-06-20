@@ -7,6 +7,7 @@ import {
   addLikeThunkCreator,
   deleteLikeThunkCreator,
   deleteSongThunkCreator,
+  setCurrentPlaying
 } from "../../store/reducers/songsReducer";
 import Track from "./track";
 
@@ -28,6 +29,7 @@ const TrackContainer = connect(mapStateToProps, {
   addLikeThunkCreator,
   deleteLikeThunkCreator,
   deleteSongThunkCreator,
+  setCurrentPlaying
 })(MiddleTrackContainer);
 
 export default TrackContainer;

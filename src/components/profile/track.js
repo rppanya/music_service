@@ -1,4 +1,4 @@
-import { Row, Col, Image, Button, Card } from "antd";
+import { Row, Col, Image, Button, Card, Spin } from "antd";
 import {
   HeartFilled,
   PauseOutlined,
@@ -12,12 +12,27 @@ import { useNavigate } from "react-router-dom";
 const Track = (props) => {
   const navigate = useNavigate();
   const [play, setPlay] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   console.log(props);
+
+  useEffect(()=> {
+    setPlay(props.isPlaying)
+  }, [props.currentPlaying])
+
+  useEffect(() => {
+    if ((play && !props.currentPlaying) || (play && !props.isPlaying)) {
+      setIsLoading(true);
+    } else {
+      setIsLoading(false);
+    }
+  }, [play, props.currentPlaying]);
 
   const playSong = () => {
     setPlay(!play);
     if (!props.song.file) {
       props.getAudioThunkCreator(props.song.fileId, props.song.id, true);
+    } else {
+      props.setCurrentPlaying(props.song)
     }
   };
   const like = () => {
@@ -32,7 +47,12 @@ const Track = (props) => {
 
   return (
     <Card
-      style={{ border: "0", marginTop: "5px", cursor: "default" }}
+      style={{
+        border: "0",
+        marginTop: "5px",
+        cursor: "default",
+        backgroundColor: props.isPlaying ? "lightgrey" : "white",
+      }}
       bodyStyle={{ margin: "0", padding: "0", border: "0" }}
       hoverable
     >
@@ -77,7 +97,7 @@ const Track = (props) => {
           <Button
             type="link"
             style={{ color: "purple" }}
-            onClick={(e) => { 
+            onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
               navigate(`/${props.song.authorId}`);
@@ -128,14 +148,18 @@ const Track = (props) => {
               deleteSong();
             }}
           />
+          <Spin
+            spinning={isLoading}
+            style={{ marginLeft: "20px", height: "25px" }}
+          ></Spin>
         </Col>
         <Button
           icon={
-            !play ? (
-              <CaretRightOutlined style={{ fontSize: "40px" }} />
-            ) : (
-              <PauseOutlined style={{ fontSize: "40px" }} />
-            )
+            // !play ? (
+            <CaretRightOutlined style={{ fontSize: "40px" }} />
+            // ) : (
+            //  <PauseOutlined style={{ fontSize: "40px" }} />
+            // )
           }
           style={{
             position: "absolute",
