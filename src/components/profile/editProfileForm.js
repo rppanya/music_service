@@ -30,6 +30,7 @@ const EditProfileForm = (props) => {
     name: "file",
     onChange(info) {
       setFile(info.file.originFileObj);
+      console.log(file);
     },
   };
 
@@ -66,16 +67,25 @@ const EditProfileForm = (props) => {
             <Col span={8}>
               <Avatar
                 size={{ xs: 140, sm: 140, md: 140, lg: 140, xl: 140, xxl: 140 }}
-                src={props.user.avatarBin}
+                src={file ? URL.createObjectURL(file) : props.user.avatarBin}
               ></Avatar>
-              <Upload {...uploadProps}>
+              <Upload {...uploadProps} accept="image/*">
                 <Button style={{ marginTop: "2px" }} icon={<EditOutlined />}>
                   Выбрать аватар
                 </Button>
               </Upload>
             </Col>
             <Col span={16}>
-              <FormItem label="Username" name="username">
+              <FormItem
+                label="Имя пользователя"
+                name="username"
+                rules={[
+                  {
+                    required: true,
+                    message: "Поле обязательно для заполнения!",
+                  },
+                ]}
+              >
                 <Input
                   placeholder="username"
                   defaultValue={props.user.user.username}
@@ -125,7 +135,6 @@ const EditProfileForm = (props) => {
                       placeholder="city"
                       defaultValue={props.user.user.city}
                       initialValue={props.user.user.city}
-
                     ></Input>
                   </FormItem>
                 </Col>
@@ -140,17 +149,15 @@ const EditProfileForm = (props) => {
                       placeholder="country"
                       defaultValue={props.user.user.country}
                       initialValue={props.user.user.country}
-
                     ></Input>
                   </FormItem>
                 </Col>
               </Row>
-              <FormItem label="Bio" name="bio">
+              <FormItem label="Описание" name="bio">
                 <Input.TextArea
                   placeholder="Описание профиля"
                   defaultValue={props.user.user.bio}
-                  штшешфдValue={props.user.user.bio}
-
+                  initialValue={props.user.user.bio}
                 ></Input.TextArea>
               </FormItem>
             </Col>

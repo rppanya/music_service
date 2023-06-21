@@ -7,21 +7,23 @@ import Author from "./author";
 import { getProfileInfoIdThunkCreator } from "../../store/reducers/userReducer";
 
 function MiddleAuthorContainer(props) {
-  console.log(props)
+  console.log(props);
   const userId = window.location.pathname.split("/").pop();
   useEffect(() => {
     props.getProfileInfoIdThunkCreator(userId);
   }, []);
   // useEffect(() => {
   //   props.getProfileInfoIdThunkCreator(userId);
-  // }, [props.follow]);
+  // }, [props.uploadedSongs, props.likedSongs]);
   return <Author {...props} />;
 }
 
 function mapStateToProps(state) {
   return {
     user: state.user,
-   // follow: state.follow
+    // follow: state.follow
+    // likedSongs: state.songs.likedSongs,
+    // uploadedSongs: state.songs.uploadedSongs,
   };
 }
 

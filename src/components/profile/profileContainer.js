@@ -26,6 +26,7 @@ function mapStateToProps(state) {
     headerImageBin: state.user.headerImageBin,
     likedSongs: state.songs.likedSongs,
     uploadedSongs: state.songs.uploadedSongs,
+    songsS: state.songs
   };
 }
 
