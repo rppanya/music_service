@@ -16,6 +16,12 @@ const Player = (props) => {
   const [play, { pause, duration, sound }] = useSound(
     props.currentPlaying.file ? props.currentPlaying.file : music
   );
+  useEffect(() => {
+    if (!props.userId) {
+      pause();
+      setIsPlaying(false);
+    }
+  }, [props.userId]);
 
   const playingButton = () => {
     if (isPlaying) {
@@ -26,10 +32,6 @@ const Player = (props) => {
       setIsPlaying(true);
     }
   };
-  //   useEffect(() => {
-  //     console.log(isPlaying)
-  //     playingButton();
-  //   }, []);
 
   const [currTime, setCurrTime] = useState({
     min: "",

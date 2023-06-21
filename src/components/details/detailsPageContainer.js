@@ -5,12 +5,18 @@ import { connect } from "react-redux";
 
 import Details from "./detailsContainer";
 import { getProfileInfoIdThunkCreator } from "../../store/reducers/userReducer";
+import {
+  getFollowingThunkCreator,
+  getSubscribersThunkCreator,
+} from "../../store/reducers/followReducer";
 
 function MiddleDetailsPageContainer(props) {
   const userId = window.location.pathname.split("/").pop();
 
   useEffect(() => {
     props.getProfileInfoIdThunkCreator(userId);
+    props.getFollowingThunkCreator(userId);
+    props.getSubscribersThunkCreator(userId);
   }, []);
   return <Details {...props} />;
 }
@@ -26,6 +32,8 @@ function mapStateToProps(state) {
 
 const DetailsPageContainer = connect(mapStateToProps, {
   getProfileInfoIdThunkCreator,
+  getFollowingThunkCreator,
+  getSubscribersThunkCreator,
 })(MiddleDetailsPageContainer);
 
 export default DetailsPageContainer;

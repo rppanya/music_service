@@ -12,13 +12,16 @@ function MiddleAuthorContainer(props) {
   useEffect(() => {
     props.getProfileInfoIdThunkCreator(userId);
   }, []);
+  // useEffect(() => {
+  //   props.getProfileInfoIdThunkCreator(userId);
+  // }, [props.follow]);
   return <Author {...props} />;
 }
 
 function mapStateToProps(state) {
   return {
     user: state.user,
-    follow: state.follow
+   // follow: state.follow
   };
 }
 

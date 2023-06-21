@@ -7,7 +7,7 @@ import ProfileContainer from "./components/profile/profileContainer";
 import Details from "./components/details/detailsContainer";
 import AuthorContainer from "./components/author/authorContainer";
 import Search from "./components/search/search";
-import { ConfigProvider } from "antd";
+import { ConfigProvider, Row, Col } from "antd";
 import SearchContainer from "./components/search/searchContainer";
 import DetailsPageContainer from "./components/details/detailsPageContainer";
 import { Footer } from "antd/es/layout/layout";
@@ -34,29 +34,36 @@ function App() {
             element={
               <div
                 style={{
-                  display: "flex",
-                  justifyContent: "space-between",
+                  // display: "flex",
+                  // justifyContent: "space-between",
                   paddingTop: "50px",
+                  //width: "auto"
                 }}
               >
-                <img
-                  src={require("./images/icon2.png")}
-                  style={
-                    {
-                      //backgroundColor: "purple",
-                      //width: "80%",
-                    }
-                  }
-                ></img>
-                <img
-                  src={require("./images/icon1.png")}
-                  style={
-                    {
-                      //backgroundColor: "purple",
-                      //width: "80%",
-                    }
-                  }
-                ></img>
+                <Row style={{display: "flex", justifyContent: "space-between"}}>
+                  <Col>
+                    <img
+                      src={require("./images/icon2.png")}
+                      style={{
+                        //backgroundColor: "purple",
+                        //width: "auto",
+                        //height: '10%'
+                      }}
+                    ></img>
+                  </Col>
+
+                  <Col >
+                    <img
+                      src={require("./images/icon1.png")}
+                      style={
+                        {
+                          //backgroundColor: "purple",
+                          //width: "80%",
+                        }
+                      }
+                    ></img>
+                  </Col>
+                </Row>
               </div>
             }
           ></Route>

@@ -9,9 +9,13 @@ import {
 import Profile from "./profile";
 
 function MiddleProfileContainer(props) {
+  console.log(props);
   useEffect(() => {
     props.getProfileInfoThunkCreator();
   }, []);
+  useEffect(() => {
+    props.getProfileInfoThunkCreator();
+  }, [props.likedSongs, props.uploadedSongs]);
   return <Profile {...props} />;
 }
 
@@ -20,6 +24,8 @@ function mapStateToProps(state) {
     user: state.user,
     avatarBin: state.user.avatarBin,
     headerImageBin: state.user.headerImageBin,
+    likedSongs: state.songs.likedSongs,
+    uploadedSongs: state.songs.uploadedSongs,
   };
 }
 

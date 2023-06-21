@@ -49,6 +49,8 @@ export function getFollowingThunkCreator(userId) {
             });
         } else dispatch(getFollowingActionCreator(data));
       }
+      dispatch(getFollowingActionCreator(data));
+
       // if (data.avatarId) {
       //   musicServiceApi.files.downloadFile(data.avatarId).then((avatar) => {
       //     data.avatar = avatar;
@@ -75,6 +77,7 @@ export function getSubscribersThunkCreator(userId) {
             });
         } else dispatch(getSubscribersActionCreator(data));
       }
+      dispatch(getSubscribersActionCreator(data));
     });
   };
 }
