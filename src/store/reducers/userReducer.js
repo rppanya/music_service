@@ -65,7 +65,6 @@ const userReducer = (state = initialState, action) => {
       newState.user = action.profileInfo;
       newState.avatarBin = action.avatarBin;
       newState.headerImageBin = action.headerImageBin;
-      //console.log(newState);
       return newState;
     case LOGOUT:
       localStorage.removeItem("token");
@@ -92,17 +91,13 @@ const userReducer = (state = initialState, action) => {
       return newState;
     case GET_PROFILE_INFO_ID:
       newState.anotherUser = action.data;
-      //newState.avatarBin = action.avatarBin;
-      //newState.headerImageBin = action.headerImageBin;
       return newState;
     case UPLOAD_HEADER_IMAGE:
       newState.user.headerImage = action.url;
-      //console.log(action.url);
       return newState;
     case DOWNLOAD_AVATAR_AND_HEADER:
       newState.avatarBin = action.avatarBin;
       newState.headerImageBin = action.headerBin;
-      //console.log(newState.user);
       return newState;
     default:
       return newState;
@@ -359,7 +354,6 @@ export function uploadHeaderImageThunkCreator(image) {
 export function searchUsersThunkCreator(searchString) {
   return (dispatch) => {
     musicServiceApi.user.usersSearch(searchString).then((data) => {
-      console.log(data);
       for (let i = 0; i < data.length; i++) {
         const user = data[i];
         if (data[i].avatarId) {
@@ -369,9 +363,9 @@ export function searchUsersThunkCreator(searchString) {
               data[i].avatar = avatar;
               dispatch(searchUsersActionCreator(data));
             });
-        }
+        } else dispatch(searchUsersActionCreator(data));
       }
-      //dispatch(searchUsersActionCreator(data));
+      dispatch(searchUsersActionCreator(data));
     });
   };
 }
@@ -379,10 +373,8 @@ export function searchUsersThunkCreator(searchString) {
 export function getProfileInfoIdThunkCreator(id) {
   return (dispatch) => {
     musicServiceApi.user.getProfileInfoID(id).then((data) => {
-      console.log("aaa", data);
       if (data.avatar) {
         musicServiceApi.files.downloadFile(data.avatar).then((avatarBin) => {
-          //console.log(avatarBin);
           data.avatarFile = avatarBin;
           if (data.headerImage) {
             musicServiceApi.files

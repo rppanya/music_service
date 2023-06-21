@@ -25,23 +25,21 @@ const initialState = {
   },
   songsSearch: [],
   likedSongs: [],
-  currentPlaying: "",
-  uploadedSongs: [
-    // {
-    //   id: "",
-    //   coverId: "",
-    //   cover: "",
-    //   name: "",
-    //   authorUsername: "",
-    //   authorId: "",
-    //   uploadDate: "",
-    //   description: "",
-    //   likesCount: 0,
-    //   fileId: "",
-    //   file: "",
-    //   liked: true,
-    // },
-  ],
+  currentPlaying: {
+    id: "",
+    coverId: "",
+    cover: "",
+    name: "",
+    authorUsername: "",
+    authorId: "",
+    uploadDate: "",
+    description: "",
+    likesCount: 0,
+    fileId: "",
+    file: "",
+    liked: true,
+  },
+  uploadedSongs: [],
 };
 
 const songsReducer = (state = initialState, action) => {
@@ -53,6 +51,7 @@ const songsReducer = (state = initialState, action) => {
       newState.songsInfo.file = "";
       return newState;
     case SONGS_SEARCH:
+      console.log(action.result);
       newState.songsSearch = action.result;
       return newState;
     case GET_UPLOADED_SONGS:
@@ -208,6 +207,7 @@ export function songsSearchThunkCreator(searchString) {
           dispatch(getCoverActionCreator(song.id, file));
         });
       }
+      //dispatch(getCoverActionCreator(song.id, null));
     });
   };
 }

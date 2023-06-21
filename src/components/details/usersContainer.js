@@ -23,7 +23,7 @@ const Users = (props) => {
             <User userInfo={element}></User>
           </List.Item>
         )}
-      />
+      /> 
     </div>
   );
 };

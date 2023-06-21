@@ -26,7 +26,11 @@ function MiddleSearchContainer(props) {
 }
 
 function mapStateToProps(state) {
-  return { users: state.user.usersSearch, songs: state.songs.songsSearch };
+  return {
+    users: state.user.usersSearch,
+    songs: state.songs.songsSearch,
+    currentPlaying: state.songs.currentPlaying,
+  };
 }
 
 const SearchContainer = connect(mapStateToProps, {
