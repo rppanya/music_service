@@ -1,6 +1,6 @@
 import { Button, Form, Input, Modal, Select } from "antd";
 import FormItem from "antd/es/form/FormItem";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CaretLeftOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 const { Option } = Select;
@@ -10,6 +10,8 @@ const RegistrationForm = (props) => {
   const [confirmEmail, setConfirmEmail] = useState(false);
   const [email, setEmail] = useState("");
   const [form] = Form.useForm();
+  const [emailForm] = Form.useForm();
+
   const navigate = useNavigate();
 
   const showModal = () => {
@@ -23,10 +25,16 @@ const RegistrationForm = (props) => {
     setConfirmEmail(false);
     setIsModalOpen(false);
   };
+
+  useEffect(() => {
+    console.log(isModalOpen);
+    if (!props.user.user.isError && !isModalOpen) setIsModalOpen(false);
+  }, [props.user.user]);
+
   return (
     <>
       <Button type="primary" onClick={showModal}>
-        Create account
+        Зарегистрироватсья
       </Button>
       <Modal
         open={isModalOpen}
@@ -42,10 +50,21 @@ const RegistrationForm = (props) => {
         <Form
           layout="vertical"
           style={{ display: confirmEmail ? "none" : "block" }}
+          form={emailForm}
+          onFinish={() => setConfirmEmail(true)}
         >
-          <FormItem>
+          <FormItem
+            name="email"
+            rules={[
+              {
+                required: true,
+                type: "email",
+                message: "Введите email!",
+              },
+            ]}
+          >
             <Input
-              placeholder="Your email adress"
+              placeholder="example@example.com"
               onInput={(e) => setEmail(e.target.value)}
             ></Input>
           </FormItem>
@@ -57,7 +76,7 @@ const RegistrationForm = (props) => {
               backgroundColor: "purple",
               color: "white",
             }}
-            onClick={() => setConfirmEmail(true)}
+            htmlType="submit"
           >
             Продолжить
           </Button>
@@ -67,6 +86,12 @@ const RegistrationForm = (props) => {
           layout="vertical"
           style={{ display: !confirmEmail ? "none" : "block" }}
           form={form}
+          onFinish={() => {
+            const data = form.getFieldsValue();
+            data.email = email;
+            props.registrationThunkCreator(data);
+            // setIsModalOpen(false);
+          }}
         >
           <Button
             style={{
@@ -83,14 +108,56 @@ const RegistrationForm = (props) => {
             {email}
           </Button>
 
-          <FormItem label="Username" name="username">
-            <Input placeholder="username"></Input>
+          <FormItem
+            label="Имя пользователя"
+            name="username"
+            rules={[
+              {
+                required: true,
+                message: "Поле обязательно для заполнения!",
+              },
+            ]}
+          >
+            <Input placeholder="username777"></Input>
           </FormItem>
 
-          <Form.Item name="age" label="Возраст">
-            <Input type="number" />
+          <Form.Item
+            name="age"
+            label="Возраст"
+            rules={[
+              {
+                required: true,
+                message: "Поле обязательно для заполнения!",
+              },
+            ]}
+          >
+            <Input
+              type="number"
+              min="0"
+              onChange={(e) => {
+                e.target.value[0] === "-"
+                  ? (e.target.value = form.setFieldValue(
+                      "age",
+                      e.target.value.substr(1, e.target.value.length)
+                    ))
+                  : (e.target.value = form.setFieldValue(
+                      "age",
+                      e.target.value
+                    ));
+              }}
+              value={form.getFieldValue("age")}
+            />
           </Form.Item>
-          <Form.Item name="gender" label="Пол">
+          <Form.Item
+            name="gender"
+            label="Пол"
+            rules={[
+              {
+                required: true,
+                message: "Поле обязательно для заполнения!",
+              },
+            ]}
+          >
             <Select
               // placeholder="Select a option and change input text above"
               allowClear
@@ -101,10 +168,36 @@ const RegistrationForm = (props) => {
             </Select>
           </Form.Item>
 
-          <FormItem label="Пароль" name="password">
+          <FormItem
+            label="Пароль"
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: "Поле обязательно для заполнения!",
+              },
+            ]}
+          >
             <Input.Password placeholder="password"></Input.Password>
           </FormItem>
-          <FormItem label="Подтверждение пароля" name="confirmPassword">
+          <FormItem
+            label="Подтверждение пароля"
+            name="confirmPassword"
+            rules={[
+              {
+                required: true,
+                message: "Поле обязательно для заполнения!",
+              },
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (!value || getFieldValue("password") === value) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(new Error("Пароли не совпадают!"));
+                },
+              }),
+            ]}
+          >
             <Input.Password placeholder="password"></Input.Password>
           </FormItem>
           <Button
@@ -115,16 +208,13 @@ const RegistrationForm = (props) => {
               backgroundColor: "purple",
               color: "white",
             }}
-            onClick={() => {
-              const data = form.getFieldsValue();
-              data.email = email;
-              //console.log(data);
-              props.registrationThunkCreator(data);
-              setIsModalOpen(false);
-            }}
+            htmlType="submit"
           >
             Зарегистрироваться
           </Button>
+          <p style={{ margin: "0", textAlign: "center", color: "red" }}>
+            {props.user.user.isError ? "Ошибка!" : null}
+          </p>
         </Form>
       </Modal>
     </>

@@ -150,7 +150,7 @@ const Navbar = (props) => {
           padding: "0",
         }}
       >
-        <Input.Search style={{ width: "400px" }}></Input.Search>
+        {/* <Input.Search style={{ width: "400px" }}></Input.Search> */}
       </div>
       <LoginFormContainer></LoginFormContainer>
       <RegistrationFormContainer></RegistrationFormContainer>

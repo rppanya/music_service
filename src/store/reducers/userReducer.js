@@ -196,6 +196,7 @@ export function registrationThunkCreator(data) {
   return (dispatch) => {
     musicServiceApi.user.registration(data).then((data) => {
       dispatch(registrationActionCreator(data.token));
+      dispatch(getProfileInfoActionCreator(data, null, null));
     });
   };
 }

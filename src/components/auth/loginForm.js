@@ -11,6 +11,7 @@ const LoginForm = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  console.log(props.user.user.isError);
   useEffect(() => {
     setIsModalOpen(props.open);
   }, []);
@@ -26,16 +27,23 @@ const LoginForm = (props) => {
   };
   const navigate = useNavigate();
 
+  useEffect(() => {
+    console.log(isModalOpen);
+    if (!props.user.user.isError && !isModalOpen) setIsModalOpen(false);
+  }, [props.user.user]);
+
   const signIn = () => {
     //console.log({ email: email, password: password });
     props.loginThunkCreator({ email: email, password: password });
-    setIsModalOpen(false);
+   // setIsModalOpen(false);
   };
+
+  const [form] = Form.useForm();
 
   return (
     <>
       <Button type="link" style={{ color: "white" }} onClick={showModal}>
-        Log in
+        Войти
       </Button>
       <Modal
         open={isModalOpen}
@@ -50,11 +58,22 @@ const LoginForm = (props) => {
 
         <Form
           layout="vertical"
+          form={form}
           style={{ display: confirmEmail ? "none" : "block" }}
+          onFinish={() => setConfirmEmail(true)}
         >
-          <FormItem>
+          <FormItem
+            name="email"
+            rules={[
+              {
+                required: true,
+                type: "email",
+                message: "Введите email!",
+              },
+            ]}
+          >
             <Input
-              placeholder="Your email adress or username"
+              placeholder="example@example.com"
               onInput={(e) => {
                 setEmail(e.target.value);
               }}
@@ -68,13 +87,18 @@ const LoginForm = (props) => {
               backgroundColor: "purple",
               color: "white",
             }}
-            onClick={() => setConfirmEmail(true)}
+            htmlType="submit"
           >
             Продолжить
           </Button>
         </Form>
 
-        <Form style={{ display: !confirmEmail ? "none" : "block" }}>
+        <Form
+          style={{ display: !confirmEmail ? "none" : "block" }}
+          onFinish={() => {
+            signIn();
+          }}
+        >
           <Button
             style={{
               width: "100%",
@@ -89,7 +113,15 @@ const LoginForm = (props) => {
           >
             {email}
           </Button>
-          <FormItem>
+          <FormItem
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: "Введите пароль!",
+              },
+            ]}
+          >
             <Input.Password
               placeholder="password"
               onChange={(e) => {
@@ -105,12 +137,13 @@ const LoginForm = (props) => {
               backgroundColor: "purple",
               color: "white",
             }}
-            onClick={() => {
-              signIn();
-            }}
+            htmlType="submit"
           >
-            Sign in
+            Войти
           </Button>
+          <p style={{ margin: "0", textAlign: "center", color: "red" }}>
+            {props.user.user.isError ? "Неправильный email или пароль!" : null}
+          </p>
         </Form>
       </Modal>
     </>
