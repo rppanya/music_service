@@ -26,10 +26,10 @@ const Player = (props) => {
       setIsPlaying(true);
     }
   };
-//   useEffect(() => {
-//     console.log(isPlaying)
-//     playingButton();
-//   }, []);
+  //   useEffect(() => {
+  //     console.log(isPlaying)
+  //     playingButton();
+  //   }, []);
 
   const [currTime, setCurrTime] = useState({
     min: "",
@@ -60,6 +60,13 @@ const Player = (props) => {
     }, 1000);
     return () => clearInterval(interval);
   }, [sound]);
+
+  const like = () => {
+    props.currentPlaying.liked
+      ? props.deleteLikeThunkCreator(props.currentPlaying.id, props.userId)
+      : props.addLikeThunkCreator(props.currentPlaying.id, props.userId);
+  };
+
   return (
     <>
       <Row>
@@ -145,14 +152,22 @@ const Player = (props) => {
           }}
           span={14}
         >
-          <HeartFilled
-            style={{
-              marginRight: "35px",
-              color: props.currentPlaying.liked ? "purple" : "darkgray",
-              fontSize: "22px",
+          <Button
+            type="link"
+            style={{ marginTop: "12px" }}
+            onClick={() => {
+              like();
             }}
-            hoverable
-          />
+          >
+            <HeartFilled
+              style={{
+                marginRight: "35px",
+                color: props.currentPlaying.liked ? "purple" : "darkgray",
+                fontSize: "22px",
+              }}
+              hoverable
+            />
+          </Button>
           {/* <img
             style={{
               marginTop: "15px",
@@ -164,14 +179,21 @@ const Player = (props) => {
             hoverable
             src={require("../../images/medium-volume.png")}
           ></img> */}
-          <VerticalAlignBottomOutlined
-            style={{
-              marginRight: "25px",
-              color: "purple",
-              fontSize: "22px",
-            }}
-            hoverable
-          />
+          <Button
+            type="link"
+            style={{ marginTop: "12px" }}
+            download={`${props.currentPlaying.name}.mp4`}
+            href={props.currentPlaying.file}
+          >
+            <VerticalAlignBottomOutlined
+              style={{
+                marginRight: "25px",
+                color: "purple",
+                fontSize: "22px",
+              }}
+              hoverable
+            ></VerticalAlignBottomOutlined>
+          </Button>
         </Col>
       </Row>
     </>
