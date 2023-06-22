@@ -5,7 +5,7 @@ const Author = (props) => {
   return (
     <div>
       <ProfileHeader
-        isMyProfile={props.user.id === props.user.id}
+        isMyProfile={props.user.id === props.userId}
         name={props.user.name}
         username={props.user.username}
         surname={props.user.surname}
