@@ -13,36 +13,30 @@ const Track = (props) => {
   const navigate = useNavigate();
   const [play, setPlay] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  console.log("liked", props.song.liked);
 
   useEffect(() => {
     setPlay(props.isPlaying);
   }, [props.currentPlaying]);
 
   useEffect(() => {
-    console.log(play, props.currentPlaying);
     if (
       (play && !props.currentPlaying) ||
       (play && !props.isPlaying) ||
       (play && props.currentPlaying == "")
     ) {
-      console.log("aaaaaaaaaaaaaaaaaa");
       setIsLoading(true);
     } else {
       setIsLoading(false);
     }
   }, [play, props.currentPlaying]);
-  console.log(isLoading);
 
   const playSong = () => {
-    console.log(props.song.file, props.song.fileId, props.song.id);
     // setIsLoading(true);
 
     setPlay(!play);
     if (!props.song.file) {
       //props.getAudioThunkCreator(props.song.fileId, props.song.id, true);
       props.setCurrentPlaying(props.song);
-      //console.log('aaaaa')
     } else {
       props.setCurrentPlaying(props.song);
     }
@@ -126,7 +120,7 @@ const Track = (props) => {
               color: props.song.liked ? "purple" : "darkGrey",
               fontSize: "17px",
             }}
-            hoverable
+            hoverable="true"
             onClick={() => {
               like();
             }}

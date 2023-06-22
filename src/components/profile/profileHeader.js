@@ -9,7 +9,6 @@ const ProfileHeader = (props) => {
   const [avatar, setAvatar] = useState(null);
   const [headerImage, setHeaderImage] = useState(null);
 
-  console.log(props);
   const showModal = () => {
     setIsModalOpen(true);
   };

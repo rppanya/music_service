@@ -27,7 +27,6 @@ const RegistrationForm = (props) => {
   };
 
   useEffect(() => {
-    console.log(isModalOpen);
     if (!props.user.user.isError && !isModalOpen) setIsModalOpen(false);
   }, [props.user.user]);
 

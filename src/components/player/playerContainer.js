@@ -10,7 +10,6 @@ import {
 } from "../../store/reducers/songsReducer";
 
 function MiddlePlayerContainer(props) {
-  console.log(props);
   useEffect(() => {
     props.setCurrentPlaying("");
   }, [props.userId]);

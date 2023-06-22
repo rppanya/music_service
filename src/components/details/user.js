@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 
 const User = (props) => {
   const navigate = useNavigate();
-  console.log(props);
   return (
     <Card
       style={{ border: "0" }}

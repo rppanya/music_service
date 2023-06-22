@@ -44,7 +44,6 @@ const songsReducer = (state = initialState, action) => {
       newState.uploadedSongs = action.uploadedSongs;
       return newState;
     case GET_LIKED_SONGS:
-      console.log(action.likedSongs);
       newState.likedSongs = action.likedSongs;
       return newState;
     case GET_COVER:
@@ -104,7 +103,6 @@ const songsReducer = (state = initialState, action) => {
           if (action.play) {
             newState.currentPlaying = newState.uploadedSongs[i];
           }
-          console.log(newState.currentPlaying, action.file, action.play);
           return newState;
         }
       }
@@ -267,7 +265,6 @@ export function getLikedSongsThunkCreator(userId) {
 export function addLikeThunkCreator(songId, userId) {
   return (dispatch) => {
     musicServiceApi.likes.addLike(songId).then((likesCount) => {
-      console.log(likesCount);
       dispatch(changeLikeActionCreator(songId, true, likesCount));
       musicServiceApi.likes.getLikedSongs(userId).then((data) => {
         for (let i = 0; i < data.length; i++) {
@@ -304,7 +301,6 @@ function setCurrentPlayingActionCreator(song) {
 }
 
 export function setCurrentPlaying(song) {
-  console.log(song);
   return (dispatch) => {
     if (!song.file) {
       musicServiceApi.files.downloadFile(song.fileId).then((file) => {

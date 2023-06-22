@@ -11,21 +11,19 @@ import {
 import { getProfileInfoIdThunkCreator } from "../../store/reducers/userReducer";
 
 function MiddleFollowButtonContainer(props) {
-  console.log(props);
+  // useEffect(() => {
+  //   props.getProfileInfoIdThunkCreator(props.userId);
+  // }, []);
+  const userId = window.location.pathname.split("/").pop();
+
   useEffect(() => {
-    props.getProfileInfoIdThunkCreator(props.userId);
-  }, []);
-  useEffect(() => {
-    props.getProfileInfoIdThunkCreator(props.userId);
+    props.getProfileInfoIdThunkCreator(userId);
   }, [props.follow]);
   return <FollowButton {...props} />;
 }
 
 function mapStateToProps(state) {
   return {
-    songs: state.songs.uploadedSongs,
-    currentPlaying: state.songs.currentPlaying,
-    following: state.user.anotherUser.following,
     follow: state.follow.subscribers,
   };
 }

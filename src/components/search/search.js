@@ -5,7 +5,6 @@ import { useLocation } from "react-router-dom";
 import React, { useEffect } from "react";
 
 const Search = (props) => {
-  console.log(props);
   const query = useLocation().search;
 
   return (

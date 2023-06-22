@@ -35,7 +35,6 @@ function getSubscribersActionCreator(subscribers) {
 }
 
 export function getFollowingThunkCreator(userId) {
-  console.log("following" + userId);
   return (dispatch) => {
     musicServiceApi.following.getFollowing(userId).then((data) => {
       for (let i = 0; i < data.length; i++) {
@@ -62,7 +61,6 @@ export function getFollowingThunkCreator(userId) {
 }
 
 export function getSubscribersThunkCreator(userId) {
-  console.log("subscribers" + userId);
 
   return (dispatch) => {
     musicServiceApi.subscribers.getSubscribers(userId).then((data) => {

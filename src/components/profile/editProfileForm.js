@@ -30,7 +30,6 @@ const EditProfileForm = (props) => {
     name: "file",
     onChange(info) {
       setFile(info.file.originFileObj);
-      console.log(file);
     },
   };
 

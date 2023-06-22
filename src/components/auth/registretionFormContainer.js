@@ -5,7 +5,6 @@ import { registrationThunkCreator } from "../../store/reducers/userReducer";
 import RegistrationForm from "./registrationForm";
 
 function MiddleRegistrationFormContainer(props) {
-  //console.log(props);
   return <RegistrationForm {...props} />;
 }
 

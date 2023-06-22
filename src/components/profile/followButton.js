@@ -1,11 +1,9 @@
 import { Button } from "antd";
 
 const FollowButton = (props) => {
-  console.log(props);
   return props.following ? (
     <Button
       onClick={() => {
-        console.log("unfollow");
         props.unfollowThunkCreator(props.userId);
       }}
       danger
@@ -16,7 +14,6 @@ const FollowButton = (props) => {
   ) : (
     <Button
       onClick={() => {
-        console.log("follow");
 
         props.followThunkCreator(props.userId);
       }}

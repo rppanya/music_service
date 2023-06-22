@@ -20,7 +20,8 @@ function MiddleAuthorContainer(props) {
 
 function mapStateToProps(state) {
   return {
-    user: state.user,
+    user: state.user.anotherUser,
+    userId: state.user.user.id
     // follow: state.follow
     // likedSongs: state.songs.likedSongs,
     // uploadedSongs: state.songs.uploadedSongs,

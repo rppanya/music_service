@@ -11,7 +11,6 @@ const LoginForm = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  console.log(props.user.user.isError);
   useEffect(() => {
     setIsModalOpen(props.open);
   }, []);
@@ -28,12 +27,10 @@ const LoginForm = (props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(isModalOpen);
     if (!props.user.user.isError && !isModalOpen) setIsModalOpen(false);
   }, [props.user.user]);
 
   const signIn = () => {
-    //console.log({ email: email, password: password });
     props.loginThunkCreator({ email: email, password: password });
    // setIsModalOpen(false);
   };

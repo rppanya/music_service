@@ -170,7 +170,6 @@ const Navbar = (props) => {
       navigate("/");
     }
   }, [props, token]);
-  console.log(props);
 
   useEffect(() => {
     if (token) {

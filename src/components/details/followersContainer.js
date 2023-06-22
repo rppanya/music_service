@@ -7,7 +7,6 @@ import UsersContainer from "./usersContainer";
 import { getSubscribersThunkCreator } from "../../store/reducers/followReducer";
 
 function MiddleFollowersContainer(props) {
-  console.log(props);
 
   useEffect(() => {
     props.getSubscribersThunkCreator(props.userId);

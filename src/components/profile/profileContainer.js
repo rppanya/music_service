@@ -9,7 +9,6 @@ import {
 import Profile from "./profile";
 
 function MiddleProfileContainer(props) {
-  console.log(props);
   useEffect(() => {
     props.getProfileInfoThunkCreator();
   }, []);

@@ -10,7 +10,6 @@ function MiddleLikesContainer(props) {
   useEffect(() => {
     props.getLikedSongsThunkCreator(props.userId);
   }, [props.userId]);
-  console.log(props)
   return <MyTracks {...props} />;
 }
 

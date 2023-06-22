@@ -5,28 +5,28 @@ const Author = (props) => {
   return (
     <div>
       <ProfileHeader
-        isMyProfile={props.user.user.id === props.user.anotherUser.id}
-        name={props.user.anotherUser.name}
-        username={props.user.anotherUser.username}
-        surname={props.user.anotherUser.surname}
-        city={props.user.anotherUser.city}
-        country={props.user.anotherUser.country}
-        avatar={props.user.anotherUser.avatar}
-        avatarBin={props.user.anotherUser.avatarFile}
-        headerImageBin={props.user.anotherUser.headerImageFile}
-        headerImage={props.user.anotherUser.headerImage}
+        isMyProfile={props.user.id === props.user.id}
+        name={props.user.name}
+        username={props.user.username}
+        surname={props.user.surname}
+        city={props.user.city}
+        country={props.user.country}
+        avatar={props.user.avatar}
+        avatarBin={props.user.avatarFile}
+        headerImageBin={props.user.headerImageFile}
+        headerImage={props.user.headerImage}
       />
       <ProfileMenu
-        followersCount={props.user.anotherUser.followersCount}
-        followingCount={props.user.anotherUser.followingCount}
-        uploadedSongsCount={props.user.anotherUser.uploadedSongsCount}
-        likesCount={props.user.anotherUser.likesCount}
+        followersCount={props.user.followersCount}
+        followingCount={props.user.followingCount}
+        uploadedSongsCount={props.user.uploadedSongsCount}
+        likesCount={props.user.likesCount}
         getUploadedSongsThunkCreator={props.getUploadedSongsThunkCreator}
         uploadedSongs={props.uploadedSongs}
-        userId={props.user.anotherUser.id}
-        userBio={props.user.anotherUser.bio}
-        following={props.user.anotherUser.following}
-        isMyProfile={props.user.user.id === props.user.anotherUser.id}
+        userId={props.user.id}
+        userBio={props.user.bio}
+        following={props.user.following}
+        isMyProfile={props.userId === props.user.id}
       />
     </div>
   );
