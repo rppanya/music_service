@@ -135,6 +135,8 @@ const ProfileHeader = (props) => {
             title="Изменить фон"
             open={isModalOpen}
             onOk={handleOk}
+            okText="Сохранить"
+            cancelText="Отмена"
             onCancel={handleCancel}
           >
             <Upload {...uploadProps} accept="image/*">
