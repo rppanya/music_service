@@ -9,11 +9,11 @@ import {
   CaretRightOutlined,
   VerticalAlignBottomOutlined,
 } from "@ant-design/icons";
-import { Avatar, Row, Button, Col } from "antd";
+import { Avatar, Row, Button, Col, Slider, Popover } from "antd";
 
 const Player = (props) => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [play, { pause, duration, sound }] = useSound(
+  const [play, { pause, duration, sound, volume }] = useSound(
     props.currentPlaying.file ? props.currentPlaying.file : music
   );
   useEffect(() => {
@@ -67,6 +67,12 @@ const Player = (props) => {
     props.currentPlaying.liked
       ? props.deleteLikeThunkCreator(props.currentPlaying.id, props.userId)
       : props.addLikeThunkCreator(props.currentPlaying.id, props.userId);
+  };
+
+  const [inputValue, setInputValue] = useState(1);
+  const onChangeVolume = (newValue) => {
+    sound.volume(newValue);
+    setInputValue(newValue);
   };
 
   return (
@@ -170,17 +176,32 @@ const Player = (props) => {
               hoverable
             />
           </Button>
-          {/* <img
-            style={{
-              marginTop: "15px",
-              marginRight: "25px",
-              color: "purple",
-              fontSize: "22px",
-              height: "26px",
-            }}
-            hoverable
-            src={require("../../images/medium-volume.png")}
-          ></img> */}
+
+          <Popover
+            content=<Slider
+              style={{ height: "100px" }}
+              min={0}
+              max={1}
+              onChange={onChangeVolume}
+              vertical
+              step={0.01}
+              value={typeof inputValue === "number" ? inputValue : 0}
+            />
+            trigger="click"
+          >
+            <img
+              style={{
+                marginTop: "15px",
+                marginRight: "25px",
+                color: "purple",
+                fontSize: "22px",
+                height: "26px",
+              }}
+              hoverable
+              src={require("../../images/medium-volume.png")}
+            ></img>
+          </Popover>
+
           <Button
             type="link"
             style={{ marginTop: "12px" }}
