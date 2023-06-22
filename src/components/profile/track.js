@@ -13,26 +13,38 @@ const Track = (props) => {
   const navigate = useNavigate();
   const [play, setPlay] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  console.log(props);
-
-  useEffect(()=> {
-    setPlay(props.isPlaying)
-  }, [props.currentPlaying])
+  console.log("liked", props.song.liked);
 
   useEffect(() => {
-    if ((play && !props.currentPlaying) || (play && !props.isPlaying)) {
+    setPlay(props.isPlaying);
+  }, [props.currentPlaying]);
+
+  useEffect(() => {
+    console.log(play, props.currentPlaying);
+    if (
+      (play && !props.currentPlaying) ||
+      (play && !props.isPlaying) ||
+      (play && props.currentPlaying == "")
+    ) {
+      console.log("aaaaaaaaaaaaaaaaaa");
       setIsLoading(true);
     } else {
       setIsLoading(false);
     }
   }, [play, props.currentPlaying]);
+  console.log(isLoading);
 
   const playSong = () => {
+    console.log(props.song.file, props.song.fileId, props.song.id);
+    // setIsLoading(true);
+
     setPlay(!play);
     if (!props.song.file) {
-      props.getAudioThunkCreator(props.song.fileId, props.song.id, true);
+      //props.getAudioThunkCreator(props.song.fileId, props.song.id, true);
+      props.setCurrentPlaying(props.song);
+      //console.log('aaaaa')
     } else {
-      props.setCurrentPlaying(props.song)
+      props.setCurrentPlaying(props.song);
     }
   };
   const like = () => {
@@ -86,7 +98,7 @@ const Track = (props) => {
           {props.song.name}
         </Col>
         <Col
-          span={props.song.authorId === props.userId ? 6 : 8}
+          span={props.song.authorId === props.userId ? 6 : 7}
           style={{
             lineHeight: "45px",
             fontSize: "15px",
@@ -131,7 +143,7 @@ const Track = (props) => {
           </b>
         </Col>
         <Col
-          span={2}
+          span={1}
           style={{
             display: props.song.authorId === props.userId ? "block" : "none",
           }}
@@ -148,9 +160,12 @@ const Track = (props) => {
               deleteSong();
             }}
           />
+        </Col>
+        <Col span={1}>
           <Spin
             spinning={isLoading}
-            style={{ marginLeft: "20px", height: "25px" }}
+            //style={{ marginLeft: "20px", height: "25px" }}
+            style={{ marginTop: "13px" }}
           ></Spin>
         </Col>
         <Button

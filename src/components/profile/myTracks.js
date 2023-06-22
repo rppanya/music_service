@@ -9,10 +9,7 @@ const MyTracks = (props) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   console.log(props);
-  
 
-
-  
   useEffect(() => {
     setData(props.songs != [] && !props.songs.isError ? props.songs : []);
     console.log(props.songs);

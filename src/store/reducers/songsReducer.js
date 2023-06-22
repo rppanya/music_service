@@ -304,6 +304,17 @@ function setCurrentPlayingActionCreator(song) {
 }
 
 export function setCurrentPlaying(song) {
-  return (dispatch) => dispatch(setCurrentPlayingActionCreator(song));
+  console.log(song);
+  return (dispatch) => {
+    if (!song.file) {
+      musicServiceApi.files.downloadFile(song.fileId).then((file) => {
+        dispatch(getAudioActionCreator(file, song.fileId, true));
+        if (song) song["file"] = file;
+        dispatch(setCurrentPlayingActionCreator(song));
+      });
+    } else {
+      dispatch(setCurrentPlayingActionCreator(song));
+    }
+  };
 }
 export default songsReducer;
