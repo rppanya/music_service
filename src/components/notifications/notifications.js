@@ -36,7 +36,7 @@ const Notifications = (props) => {
                   <div
                     style={{ margin: "0" }}
                     dangerouslySetInnerHTML={{
-                      __html: `${item.text}`,
+                      __html: item.text,
                     }}
                   ></div>
                 }
