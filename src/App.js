@@ -7,12 +7,14 @@ import ProfileContainer from "./components/profile/profileContainer";
 import Details from "./components/details/detailsContainer";
 import AuthorContainer from "./components/author/authorContainer";
 import Search from "./components/search/search";
-import { ConfigProvider, Row, Col } from "antd";
+
+import { ConfigProvider, Row, Col, Typography } from "antd";
 import SearchContainer from "./components/search/searchContainer";
 import DetailsPageContainer from "./components/details/detailsPageContainer";
 import { Footer } from "antd/es/layout/layout";
 import Player from "./components/player/player";
 import PlayerContainer from "./components/player/playerContainer";
+const { Text, Link } = Typography;
 
 function App() {
   return (
@@ -36,23 +38,44 @@ function App() {
                 style={{
                   // display: "flex",
                   // justifyContent: "space-between",
-                  paddingTop: "50px",
+                  paddingTop: "100px",
                   //width: "auto"
                 }}
               >
-                <Row style={{display: "flex", justifyContent: "space-between"}}>
+                <Row
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
                   <Col>
                     <img
                       src={require("./images/icon2.png")}
-                      style={{
-                        //backgroundColor: "purple",
-                        //width: "auto",
-                        //height: '10%'
-                      }}
+                      style={
+                        {
+                          //backgroundColor: "purple",
+                          //width: "auto",
+                          //height: '10%'
+                        }
+                      }
                     ></img>
                   </Col>
+                  <Col style={{ marginTop: "200px" }}>
+                    <Text style={{ fontSize: "40px", fontWeight: "bold" }}>
+                      HARMONY BEAT
+                    </Text>
+                    {/* <b >HarmonyBeat</b> */}
+                    <Text
+                      italic
+                      secondary
+                      style={{
+                        display: "block",
+                        //marginTop: "100px",
+                        fontSize: "20px",
+                      }}
+                    >
+                      Музыкальное вдохновение на каждом шагу
+                    </Text>
+                  </Col>
 
-                  <Col >
+                  <Col>
                     <img
                       src={require("./images/icon1.png")}
                       style={
