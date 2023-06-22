@@ -9,6 +9,28 @@ function getNotifications() {
   });
 }
 
+function getNotificationsCount() {
+  return instance.get(`${url}/unread-count`, {
+    headers: {
+      "Content-Type": "applicatin/json",
+    },
+  });
+}
+
+function readNotification() {
+  return instance.put(
+    `${url}/mark-as-read`,
+    {},
+    {
+      headers: {
+        "Content-Type": "applicatin/json",
+      },
+    }
+  );
+}
+
 export const notificationsApi = {
   getNotifications: getNotifications,
+  getNotificationsCount: getNotificationsCount,
+  readNotification: readNotification
 };

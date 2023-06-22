@@ -1,7 +1,6 @@
-import { Button, Popover, Avatar, List } from "antd";
+import { Button, Popover, Badge, List } from "antd";
 
 const Notifications = (props) => {
-  console.log(props);
   const notificationType = {
     LIKE_SONG: "Лайк",
     FOLLOW: "Подписка",
@@ -15,9 +14,8 @@ const Notifications = (props) => {
     text[text.length - 1] = `<a href=${notification.userId}>${
       text[text.length - 1]
     }</a>`;
-    console.log(`<p >${text.join(" ")}</p>`);
-  
-     data[i].text = `<b>${text.join(" ")}</b>`;
+
+    data[i].text = `<b>${text.join(" ")}</b>`;
   }
   const text = <span style={{ color: "purple" }}>Уведомления</span>;
   const content = (
@@ -33,22 +31,16 @@ const Notifications = (props) => {
 
             <List.Item style={{ marginTop: "0", paddingTop: "0" }}>
               <List.Item.Meta
-                // avatar={
-                //   <Avatar
-                //     src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${index}`}
-                //   />
-                // }
                 title={<b>{notificationType[item.type]}</b>}
                 description={
                   <div
-                  style={{margin: "0"}}
+                    style={{ margin: "0" }}
                     dangerouslySetInnerHTML={{
                       __html: `${item.text}`,
                     }}
                   ></div>
                 }
               />
-              {/* {console.log(item.text.split(" ")[1] = "a")} */}
             </List.Item>
           </div>
         )}
@@ -58,6 +50,7 @@ const Notifications = (props) => {
 
   const loadNotifications = () => {
     props.getNotificationsThunkCreator();
+    props.readNotificationThunkCreator();
   };
   return (
     <Popover
@@ -66,17 +59,19 @@ const Notifications = (props) => {
       content={content}
       trigger="click"
     >
-      <Button
-        type="link"
-        onClick={() => {
-          loadNotifications();
-        }}
-      >
-        <img
-          src={require("../../images/bell-ring.png")}
-          style={{ height: "26px" }}
-        ></img>
-      </Button>
+      <Badge count={props.count} offset={[-10, 7]} size="small">
+        <Button
+          type="link"
+          onClick={() => {
+            loadNotifications();
+          }}
+        >
+          <img
+            src={require("../../images/bell-ring.png")}
+            style={{ height: "26px" }}
+          ></img>
+        </Button>
+      </Badge>
     </Popover>
   );
 };

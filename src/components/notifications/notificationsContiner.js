@@ -4,23 +4,30 @@ import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
 import Notifications from "./notifications";
-import { getNotificationsThunkCreator } from "../../store/reducers/notificationReducer";
+import {
+  getNotificationsThunkCreator,
+  getNotificationsCountThunkCreator,
+  readNotificationThunkCreator,
+} from "../../store/reducers/notificationReducer";
 
 function MiddleNotificationsContainer(props) {
-//   useEffect(()=> {
-//     props.getNotificationsThunkCreator()
-//   }, [])
+  useEffect(() => {
+    props.getNotificationsCountThunkCreator();
+  }, []);
   return <Notifications {...props} />;
 }
 
 function mapStateToProps(state) {
   return {
-    notifications: state.notifications.notifications
+    notifications: state.notifications.notifications,
+    count: state.notifications.count,
   };
 }
 
 const NotificationsContainer = connect(mapStateToProps, {
-    getNotificationsThunkCreator,
+  getNotificationsThunkCreator,
+  getNotificationsCountThunkCreator,
+  readNotificationThunkCreator,
 })(MiddleNotificationsContainer);
 
 export default NotificationsContainer;
